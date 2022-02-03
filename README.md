@@ -13,6 +13,6 @@ The GUI is divided into 3 menus:
 
 Each GUI has its own "Help" tab explaining how to use it. Please, bear with me, as I am finishing writing the "Help" for each single GUI. 
 
-I hope this GUI will be of some help.
+I hope this GUI will be of some help to someone.
 
 If you need any assistance and/or find bugs, please contact me at: pressalex@hotmail.com
