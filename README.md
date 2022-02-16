@@ -15,4 +15,4 @@ Each GUI has its own "Help" tab explaining how to use it.
 
 I hope this GUI will be of some help to someone.
 
-If you need any assistance and/or find bugs, please contact me at: pressalex@hotmail.com
+If you need any assistance and/or find bugs, please contact me (Alex) at: pressalex@hotmail.com
