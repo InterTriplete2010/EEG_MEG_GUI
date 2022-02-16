@@ -11,7 +11,7 @@ The GUI is divided into 3 menus:
 
 3) Tools: this is a set of GUIs used for basic manipulation of the data, such as removal of triggers, removal of senros, etc.
 
-Each GUI has its own "Help" tab explaining how to use it. Please, bear with me, as I am finishing writing the "Help" for each single GUI. 
+Each GUI has its own "Help" tab explaining how to use it. 
 
 I hope this GUI will be of some help to someone.
 
