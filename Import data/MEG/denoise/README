@@ -1,0 +1,19 @@
+Tools for denoising multichannel electrophysiological data (EEG, MEG, etc.)
+
+Copyright 2007/2008 Alain de Cheveigne, Laboratoire de Psychologie de la Perception, 
+CNRS and Universite Paris Descartes, and Departement d'Etudes Cognitives, Ecole 
+Normale Superieure, Paris.  This software is provided as-is with no warranty.  
+This software is provided for SCIENTIFIC RESEARCH purposes only.  If you use the 
+tools (or the algorithms, or the ideas) in your research, you must cite the 
+references below in all publications derived from this research.  If you wish to use 
+these tools (or the algorithms, or the ideas) in a product, you must contact 
+Alain.de.Cheveigne AT ens.fr for permission and/or licensing details.
+
+The tools implement three basic denoising methods: TSPCA, SNS, and DSS-based spatial filtering. 
+Cite as:
+de Cheveign\'e, A. and Simon, J. Z. (2007). "Denoising based on Time-Shift PCA." Journal of Neuroscience Methods 165: 297-305.
+de Cheveign\'e, A. and Simon, J. Z. (2007). "Sensor Noise Suppression." Journal of Neuroscience Methods 168: 195-202.
+de Cheveigné, A. and Simon, J. Z. (2008). "Denoising based on spatial filtering." Journal of Neuroscience Methods 171: 331-339.
+
+Look at the example files for hints to how to use these routines. 
+
