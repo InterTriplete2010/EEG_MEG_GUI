@@ -11,7 +11,9 @@ The GUI is divided into 3 menus:
 
 3) Tools: this is a set of GUIs used for basic manipulation of the data, such as removal of triggers, removal of senros, etc.
 
-Each GUI has its own "Help" tab explaining how to use it. 
+Each GUI has its own "Help" tab explaining how to use it.
+
+Please, note that scalp maps are plotted by using the Topoplot functions from eeglab (see the foler named "Topoplot Functions"), while ICA based on InfoMax uses the function "runica" from eeglab. Also, note that ICA based on Negative Entropy extracts correctly the ICA components, but might fail when the component is subtracted from the original data. This is possibly due to scaling problems.
 
 I hope this GUI will be of some help to someone.
 
