@@ -249,11 +249,14 @@ if (adj_trigger_value ~= 0)
     %time_domain = [Seconds_Before_trigger*sampling_frequency - 1:size(eeg_sweeps,2) - 2]/sampling_frequency + adj_trigger_value - 0.9/1000;
 %time_domain = [-1:size(eeg_sweeps,2) - 2]/sampling_frequency + adj_trigger_value - 0.9/1000 + Seconds_Before_trigger;
     %0.9ms have been introduced to account for the delay of the ear-phone
-time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + adj_trigger_value + Seconds_Before_trigger;
- 
+
+    %time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + adj_trigger_value + Seconds_Before_trigger;
+ time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + round(adj_trigger_value*sampling_frequency)/sampling_frequency + round(Seconds_Before_trigger*sampling_frequency)/sampling_frequency;
+
 else
    
- time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + Seconds_Before_trigger;  
+ %time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + Seconds_Before_trigger; 
+ time_domain = [0:size(eeg_sweeps,2) - 1]/sampling_frequency + round(Seconds_Before_trigger*sampling_frequency)/sampling_frequency;
     
 end
 
@@ -531,7 +534,7 @@ xlabel('\bfTime (ms)')
     
     catch
         
-        message = ['No peak has been detected for the channel: ' cell2mat(channels_recorded(channel_selected)) '. Change the threshold to detect the peaks'];
+        message = ['No peak has been detected for the channel: ' cell2mat(channels_recorded(channel_selected)) '. Change the threshold to detect the peaks or change the latencies of the expected peaks'];
 
         msgbox(message,'No peak detected','warn');
         
