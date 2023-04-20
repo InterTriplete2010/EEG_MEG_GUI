@@ -128,11 +128,37 @@ trigger_names = get(handles.Trigger_Code_cABR,'String');
 
 try
 
-    trigger_selected = str2num(trigger_names(trigger_position,:)); %Neuroscan
-    
+    trigger_selected = str2num(trigger_names(trigger_position,:)); 
+
+    try
+
+    trigger_selected_next = str2num(trigger_names(trigger_position + 1,:)); 
+
+    catch
+
+        message = 'Analysis aborted';
+msgbox(message,'No second trigger has been identified for the alternated analysis','warn','replace'); 
+
+return;
+
+     end
+
 catch
 
-trigger_selected = trigger_names(trigger_position);    %BrainVision
+trigger_selected = trigger_names(trigger_position);   
+
+try
+
+trigger_selected_next = trigger_names(trigger_position + 1);
+
+catch
+
+        message = 'Analysis aborted';
+msgbox(message,'No second trigger has been identified for the alternated analysis','warn','replace'); 
+
+return;
+
+     end
 
 end
 
@@ -265,7 +291,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Extract_Trials_function_cABR(Files_Mat_file_selected,Files_Mat_file_directory,Seconds_Before_trigger,First_sample_after_trigger, ...
-                Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,standardized_data, ...
+                Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,trigger_selected_next,standardized_data, ...
                 name_file_saved,artifact_neg_electrode,artifact_pos_electrode, ...
                 lf_filter,hf_filter,order_filter,filter_phase,minimum_threshold_peaks,minimum_distance_peaks,norm_factor,adj_trigger_value,max_trials, ...
                 First_sample_transient_region,First_sample_ss_region,Last_sample_ss_region, ...
