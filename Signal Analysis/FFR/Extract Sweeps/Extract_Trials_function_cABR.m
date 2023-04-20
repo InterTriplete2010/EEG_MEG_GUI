@@ -1,5 +1,5 @@
 function Extract_Trials_function_cABR(Files_Mat_file_selected,Files_Mat_file_directory,Seconds_Before_trigger,...
-    First_sample_after_trigger,Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected, ...
+    First_sample_after_trigger,Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected, trigger_selected_next, ...
     standardized_data,name_file_saved,artifact_neg_electrode,artifact_pos_electrode,...
     lf_filter,hf_filter,order_filter,filter_phase,minimum_threshold_peaks,minimum_distance_peaks,norm_factor,adj_trigger_value,max_trials, ...
     First_sample_transient_region,First_sample_ss_region,Last_sample_ss_region,...
@@ -82,13 +82,13 @@ for kkk = 1:length(data_eeg.data_exported.events_trigger)
 
     try
     
-    if (data_eeg.data_exported.events_type(kkk)== trigger_selected) 
+    if (data_eeg.data_exported.events_type(kkk) == trigger_selected) 
     
         
         triggers_analysis(1,position_triggers_rar) = triggers(kkk);
         position_triggers_rar = position_triggers_rar + 1;
         
-    else
+    elseif (data_eeg.data_exported.events_type(kkk) == trigger_selected_next)
         
         triggers_analysis(2,position_triggers_compr) = triggers(kkk);
         position_triggers_compr = position_triggers_compr + 1;
@@ -97,12 +97,12 @@ for kkk = 1:length(data_eeg.data_exported.events_trigger)
 
     catch
         
-        if strcmp(data_eeg.data_exported.events_type(kkk),trigger_selected) %Brain Vision
+        if strcmp(data_eeg.data_exported.events_type(kkk),trigger_selected) 
         
         triggers_analysis(1,position_triggers_rar) = triggers(kkk);
         position_triggers_rar = position_triggers_rar + 1;
         
-    else
+        elseif strcmp(data_eeg.data_exported.events_type(kkk),trigger_selected_next) 
         
         triggers_analysis(2,position_triggers_compr) = triggers(kkk);
         position_triggers_compr = position_triggers_compr + 1;
@@ -773,4 +773,5 @@ msgbox(message,'Sweeps Rejected','warn','replace');
 
 message = 'All the Epochs have been extracted';
 msgbox(message,'End of the analysis','warn','replace');
+
 
