@@ -147,10 +147,24 @@ msgbox(message,'Operation aborted','warn','replace');
  if get(handles.Alternated_Polarity_Extract_Trials,'Value') == 1
   
      
+try
+
+     trigger_selected_next = str2num(trigger_names(trigger_position + 1,:)); 
+     
+     catch
+
+        message = 'Analysis aborted';
+msgbox(message,'No second trigger has been identified for the alternated analysis','warn','replace'); 
+
+return;
+
+     end
+
  Extract_Trials_function_all_electrodes_alternated_polarity(Files_Mat_file_selected,Files_Mat_file_directory,Seconds_Before_trigger,...
-         Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,standardized_data,name_file_saved,...
+         Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,trigger_selected_next, standardized_data,name_file_saved,...
          artifact_neg_electrode,artifact_pos_electrode,adj_trigger_value,max_N_sweeps,eeg_meg_scalp_map,...
         P1_start_window,P1_end_window,N1_start_window,N1_end_window,P2_start_window,P2_end_window,Start_RMS,End_RMS,plot_save_av_chan,plot_save_scalp_map_data,abs_val_peaks);
+     
      
  else
    
