@@ -1,5 +1,5 @@
 function Extract_Trials_function_all_electrodes_alternated_polarity(Files_Mat_file_selected,Files_Mat_file_directory,Seconds_Before_trigger,...
-    Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,standardized_data,name_file_saved,artifact_neg_electrode,...
+    Seconds_After_trigger,channels_recorded,channel_selected,trigger_selected,trigger_selected_next, standardized_data,name_file_saved,artifact_neg_electrode,...
     artifact_pos_electrode,adj_trigger_value,max_N_sweeps,eeg_meg_scalp_map,...
      P1_start_window,P1_end_window,N1_start_window,N1_end_window,P2_start_window,P2_end_window,Start_RMS,End_RMS,plot_save_av_chan,plot_save_scalp_map_data,abs_val_peaks)
 
@@ -56,13 +56,13 @@ for kkk = 1:length(data_eeg.data_exported.events_trigger)
 
     try
     
-    if (data_eeg.data_exported.events_type(kkk)== trigger_selected) 
+    if (data_eeg.data_exported.events_type(kkk) == trigger_selected) 
     
         
         triggers_analysis(1,position_triggers) = triggers(kkk);
         position_triggers = position_triggers + 1;
         
-    else
+    elseif (data_eeg.data_exported.events_type(kkk) == trigger_selected_next)
         
         triggers_analysis(2,position_triggers_compr) = triggers(kkk);
         position_triggers_compr = position_triggers_compr + 1;
@@ -76,7 +76,7 @@ for kkk = 1:length(data_eeg.data_exported.events_trigger)
         triggers_analysis(1,position_triggers) = triggers(kkk);
         position_triggers = position_triggers + 1;
     
-        else
+        elseif strcmp(data_eeg.data_exported.events_type(kkk),trigger_selected_next)
             
            triggers_analysis(2,position_triggers_compr) = triggers(kkk);
         position_triggers_compr = position_triggers_compr + 1; 
