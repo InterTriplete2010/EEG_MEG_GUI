@@ -148,7 +148,7 @@ sweeps_rar = 0;
 sweeps_rej_compr = 0;
 sweeps_rej_rar = 0;
 
-%% Staring the extraction of the sweeps
+%% Starting the extraction of the sweeps
 for kk = 1:size(triggers_analysis,2)
     
     try
