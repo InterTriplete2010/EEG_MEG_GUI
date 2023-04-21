@@ -220,6 +220,8 @@ sampling_frequency = eegfileloaded.data_exported.sampling_frequency;
 start_time = find(data_time >= str2double(get(handles.Start_Time_FFT,'String')),1,'first');
 end_time = find(data_time <= str2double(get(handles.End_Time_FFT,'String')),1,'last');
 
+time_plot = data_time(start_time:end_time);
+
 % start_time = round(str2double(get(handles.Start_Time_FFT,'String'))*sampling_frequency);
 % end_time = round(str2double(get(handles.End_Time_FFT,'String'))*sampling_frequency);
 
@@ -307,7 +309,7 @@ if isnan(nfft_variable)
     
 end
 
-PWelch_COGMO_Function(channel_name,eegfiledata,window_variable,noverlap_variable,nfft_variable,sampling_frequency,all_chan_choice,start_time)
+PWelch_COGMO_Function(channel_name,eegfiledata,window_variable,noverlap_variable,nfft_variable,sampling_frequency,all_chan_choice,start_time,time_plot)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
