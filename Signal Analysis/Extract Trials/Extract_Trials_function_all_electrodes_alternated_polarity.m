@@ -119,7 +119,9 @@ tt_raw = [0:size(data_eeg.data_exported.eeg_data(channel_selected,:),2) - 1]/sam
 
 %% Extracting the trials of all the channels
 save_single_trials = zeros(channels,max_N_sweeps,length(tt_mean));
-track_sweeps = 1;    
+track_sweeps_pos = 1; 
+track_sweeps_neg = 1;
+track_sweeps = 1;
 temp_eeg_rejection = [];
 position_saved_sweeps_average = [];
 
@@ -137,16 +139,33 @@ display(['Sweep# ' num2str(kk)]);
          
     if (min(min(temp_eeg_rejection)) > artifact_neg_electrode && max(max(temp_eeg_rejection)) < artifact_pos_electrode)
         
-            if (track_sweeps <= max_N_sweeps)
-            
-        save_single_trials(:,track_sweeps,:) = temp_eeg_rejection;
-        track_sweeps = track_sweeps + 1;
-        temp_eeg_rejection = [];
-            position_saved_sweeps_average = [position_saved_sweeps_average;kk];
-            
+        if (mod(kk,2) == 1)
+
+            if (track_sweeps_pos <= max_N_sweeps/2)
+
+                track_sweeps_pos = track_sweeps_pos + 1;
+                save_single_trials(:,track_sweeps,:) = temp_eeg_rejection;
+                track_sweeps = track_sweeps + 1;
+                temp_eeg_rejection = [];
+                position_saved_sweeps_average = [position_saved_sweeps_average;kk];
+
             end
+
+        else
+
+            if (track_sweeps_neg <= max_N_sweeps/2)
+
+                track_sweeps_neg = track_sweeps_neg + 1;
+                save_single_trials(:,track_sweeps,:) = temp_eeg_rejection;
+                track_sweeps = track_sweeps + 1;
+                temp_eeg_rejection = [];
+                position_saved_sweeps_average = [position_saved_sweeps_average;kk];
+
+            end
+
         end
-    
+
+    end
         
     catch
     
