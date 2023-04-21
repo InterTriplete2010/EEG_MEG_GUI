@@ -202,13 +202,26 @@ global EEG_Mat_file_directory;
 eegfile = [EEG_Mat_file_directory '\' EEG_Mat_file_selected];
 eegfileloaded = load(eegfile);
 
+try
+
+    data_time = eegfileloaded.data_exported.time;
+
+catch
+
+    data_time = eegfileloaded.data_exported.time_average;
+
+end
+
 channel_selected = get(handles.Channel_PWelch_Selected_EEG,'Value');
 channel_name_get = get(handles.Channel_PWelch_Selected_EEG,'String');
 channel_name = channel_name_get(channel_selected);
 
 sampling_frequency = eegfileloaded.data_exported.sampling_frequency;
-start_time = round(str2double(get(handles.Start_Time_FFT,'String'))*sampling_frequency);
-end_time = round(str2double(get(handles.End_Time_FFT,'String'))*sampling_frequency);
+start_time = find(data_time >= str2double(get(handles.Start_Time_FFT,'String')),1,'first');
+end_time = find(data_time <= str2double(get(handles.End_Time_FFT,'String')),1,'last');
+
+% start_time = round(str2double(get(handles.Start_Time_FFT,'String'))*sampling_frequency);
+% end_time = round(str2double(get(handles.End_Time_FFT,'String'))*sampling_frequency);
 
 all_chan_choice = get(handles.All_Chan_FFT,'Value');
 
