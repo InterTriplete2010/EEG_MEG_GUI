@@ -137,7 +137,8 @@ sf = f0/7;
                     
               %Hamming window with 'Periodic' option selected for DFT/FFT purposes. Use 'symmetrical' for filtering,only      
                hamm_window = hamming(find_window(2) - find_window(1),'periodic');
-                length_window(1,j) = sqrt((hamm_window'*hamm_window));
+               length_window(1,j) = (hamm_window'*hamm_window);
+                %length_window(1,j) = sqrt((hamm_window'*hamm_window));
                 
                 sg(j,:) = sg(j,:)/length_window(1,j);
                 
