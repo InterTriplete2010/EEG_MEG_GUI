@@ -423,7 +423,7 @@ subplot(2,1,1)
 %plot(time_d,temp_eeg_data_pre(repr_sensor,:),'k')
 plot(time_d,neural_data(repr_sensor,:),'k')
 hold on
-plot(time_d,neural_data(repr_sensor,:),'r')
+plot(time_d,data_ica_removed(repr_sensor,:),'r')
 legend('Before','After')
 title(['Representative sensor#' num2str(repr_sensor)])
 subplot(2,1,2)
