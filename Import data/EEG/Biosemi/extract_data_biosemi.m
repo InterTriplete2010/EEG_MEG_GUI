@@ -5,7 +5,7 @@
 %% See these links for a description of the BDF (https://www.biosemi.com/faq/file_format.htm)
 %% and EDF (https://edfrw.readthedocs.io/en/latest/specifications.html) format
 
-%Biosemi range: 524 mV (-262,144 to +262,143 µV) (http://psychophysiology.cpmc.columbia.edu/Software/PolyRex/faq.html)
+%Biosemi range: 524 mV (-262,144 to +262,143 ÂµV) (http://psychophysiology.cpmc.columbia.edu/Software/PolyRex/faq.html)
 
 % Description of the BDF Header:	
 %1) 8 bytes	Byte 1: "255" (non ascii)	Byte 1: "0" (ASCII)	Identification code
@@ -192,6 +192,9 @@ end
  max_physic_char = cell2mat(EEG.byte_15);
  
  track_index = [];
+ max_physic = zeros(1,EEG.nbchan - 1);
+ track_index_array = 1;
+ previous_index = 1;
  for ll = 1:size(max_physic_char,1)
      
      if strcmp(max_physic_char(ll),' ')
@@ -200,19 +203,26 @@ end
          
      end
      
-     if length(track_index) == 1
+     if length(track_index) == 2 & track_index_array < EEG.nbchan
          
-         break;
+         max_physic(1,track_index_array) = str2double(max_physic_char(previous_index:track_index(1) - 1));
+         previous_index = track_index(2) + 1;
+         track_index = [];
+         track_index_array = track_index_array + 1;
+         %break;
          
      end
      
  end
  
- max_physic = str2double(max_physic_char(1:track_index - 1));
+ %max_physic = str2double(max_physic_char(1:track_index - 1));
  
  min_physic_char = cell2mat(EEG.byte_14);
  
  track_index = [];
+ min_physic = zeros(1,EEG.nbchan - 1);
+ track_index_array = 1;
+ previous_index = 1;
  for ll = 1:size(min_physic_char,1)
      
      if strcmp(min_physic_char(ll),' ')
@@ -221,20 +231,27 @@ end
          
      end
      
-     if length(track_index) == 1
+     if length(track_index) == 1 & track_index_array < EEG.nbchan
          
-         break;
+         min_physic(1,track_index_array) = str2double(min_physic_char(previous_index:track_index - 1));
+         previous_index = track_index + 1;
+         track_index = [];
+         track_index_array = track_index_array + 1;
+         %break;
          
      end
      
  end
  
  
- min_physic = -str2double(min_physic_char(2:track_index - 1));
+ %min_physic = -str2double(min_physic_char(2:track_index - 1));
  
  max_dig_char = cell2mat(EEG.byte_17);
  
  track_index = [];
+ max_dig = zeros(1,EEG.nbchan - 1);
+ track_index_array = 1;
+ previous_index = 1;
  for ll = 1:size(max_dig_char,1)
      
      if strcmp(max_dig_char(ll),' ')
@@ -243,39 +260,48 @@ end
          
      end
      
-     if length(track_index) == 1
+     if length(track_index) == 1 & track_index_array < EEG.nbchan 
          
-         break;
+         max_dig(1,track_index_array) = str2double(max_dig_char(previous_index:track_index - 1));
+         previous_index = track_index + 1;
+         track_index = [];
+         track_index_array = track_index_array + 1;
+         %break;
          
      end
      
  end
  
- max_dig = str2double(max_dig_char(1:track_index - 1));
+ %max_dig = str2double(max_dig_char(1:track_index - 1));
  
- min_dig_temp = cell2mat(EEG.byte_16);
+ min_dig_char = cell2mat(EEG.byte_16);
  
  track_index = [];
- for ll = 1:size(min_dig_temp,1)
+ min_dig = zeros(1,EEG.nbchan - 1);
+ track_index_array = 1;
+ for ll = 1:size(min_dig_char,1)
      
-     if strcmp(min_dig_temp(ll),'-')
+     if strcmp(min_dig_char(ll),'-')
          
          track_index = [track_index;ll];
          
      end
      
-     if length(track_index) == 2
+     if length(track_index) == 2 & track_index_array < EEG.nbchan
          
-         break;
+         min_dig(1,track_index_array) = str2double(min_dig_char(track_index(1):track_index(2) - 1));
+         track_index(1) = [];
+         track_index_array = track_index_array + 1;
+         %break;
          
      end
      
  end
  
- min_dig = -str2double(min_dig_temp((track_index(1) + 1:track_index(2) - 1)));
+ %min_dig = -str2double(min_dig_temp((track_index(1) + 1:track_index(2) - 1)));
  
-  EEG.resolution = (max_physic - min_physic)/(max_dig - min_dig);
-  offset = max_physic - EEG.resolution*max_dig;
+  EEG.resolution = (max_physic - min_physic)./(max_dig - min_dig);
+  offset = max_physic - EEG.resolution.*max_dig;
   
  %Step 18
 %Read Nchannels*80 bytes (ASCII)
@@ -307,7 +333,6 @@ end
  
  %sampl_freq_data = str2double(sampl_freq_data_char(1:track_index - 1));
  sampl_freq_data = str2double(sampl_freq_data_char(1:track_index - 1))./str2double(EEG.byte_9);
- 
  EEG.srate = sampl_freq_data;
  EEG.pnts = EEG.srate*str2double(cell2mat(EEG.byte_8)); 
  
@@ -385,7 +410,7 @@ end
 
          temp_data_24_bit = reshape(temp_data,3,length(temp_data)/3)'*2.^[0;8;16]; %+ min_physic(1);   %Data are saved into 24 bits, Little Endian (see the structure of the data in the documentation)
       temp_data_24_bit = temp_data_24_bit - 2^24*(temp_data_24_bit >= 2^23);  %Complement 2 conversion 
-       temp_data_24_bit = temp_data_24_bit.*EEG.resolution;% + offset;
+       temp_data_24_bit = temp_data_24_bit.*EEG.resolution(kk);% + offset(kk);
        
        %temp_data_24_bit = temp_data_24_bit + min_physic(1);
        
@@ -406,8 +431,12 @@ else
 
     try
         
+        if(~isempty(reference_channel))
+
     EEG.data = EEG.data - repmat(mean(EEG.data(reference_channel,:),1), [size(EEG.data,1) 1]);  %Rereference the data
     
+        end
+
     catch
         
         message = 'Re-referencing was not performed, because the channel(s) chosen were out of boundary';
