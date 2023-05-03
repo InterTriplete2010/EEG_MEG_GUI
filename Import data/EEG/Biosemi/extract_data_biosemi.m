@@ -205,10 +205,15 @@ end
      
      if length(track_index) == 2 & track_index_array < EEG.nbchan
          
-         max_physic(1,track_index_array) = str2double(max_physic_char(previous_index:track_index(1) - 1));
+         max_physic(1,track_index_array) = str2double(max_physic_char(previous_index:track_index(1) - 1)); 
          previous_index = track_index(2) + 1;
          track_index = [];
+
+         if(~isnan(max_physic(1,track_index_array)))
+
          track_index_array = track_index_array + 1;
+         
+         end
          %break;
          
      end
@@ -236,7 +241,12 @@ end
          min_physic(1,track_index_array) = str2double(min_physic_char(previous_index:track_index - 1));
          previous_index = track_index + 1;
          track_index = [];
+
+         if(~isnan(min_physic(1,track_index_array)))
+
          track_index_array = track_index_array + 1;
+         
+         end
          %break;
          
      end
