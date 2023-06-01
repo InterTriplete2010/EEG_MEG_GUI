@@ -220,7 +220,15 @@ sampling_frequency = eegfileloaded.data_exported.sampling_frequency;
 start_time = find(data_time >= str2double(get(handles.Start_Time_FFT,'String')),1,'first');
 end_time = find(data_time <= str2double(get(handles.End_Time_FFT,'String')),1,'last');
 
+if (get(handles.FFT_Whole_Signal_COGMO,'Value') == 1)
+
+    time_plot = data_time;
+
+else
+
 time_plot = data_time(start_time:end_time);
+
+end
 
 % start_time = round(str2double(get(handles.Start_Time_FFT,'String'))*sampling_frequency);
 % end_time = round(str2double(get(handles.End_Time_FFT,'String'))*sampling_frequency);
