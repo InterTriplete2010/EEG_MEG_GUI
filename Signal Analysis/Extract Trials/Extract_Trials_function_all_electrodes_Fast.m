@@ -249,7 +249,7 @@ end
 
 if (standardized_data == 1)
     
-    save_eeg_folder = [name_file_saved '_Average_Trials_' num2str(size(save_single_trials,2)) '_Trigg_' num2str(trigger_selected) 'Standardized.mat'];
+    save_eeg_folder = [name_file_saved '_Average_Trials_' num2str(size(save_single_trials,2)) '_Trigg_' num2str(trigger_selected) '_Standardized.mat'];
 
 try
 data_exported.eeg_data = []; 
