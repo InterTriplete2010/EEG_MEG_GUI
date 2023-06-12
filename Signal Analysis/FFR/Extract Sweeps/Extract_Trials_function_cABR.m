@@ -305,15 +305,15 @@ frequency_to_plot = 2000;   %Plotting only the frequencies up to 2kHz
 figure
 subplot(3,2,1)
 
-if (standardized_data == 1)
+%if (standardized_data == 1)
 
-    mean_save_eeg_plot = mapstd(mean_average_plot);  
+ %   mean_save_eeg_plot = mapstd(mean_average_plot);  
     
-else
+%else
     
     mean_save_eeg_plot = mean_average_plot;
     
-end
+%end
 
 plot(time_domain*1000,mean_save_eeg_plot)
 
@@ -773,5 +773,3 @@ msgbox(message,'Sweeps Rejected','warn','replace');
 
 message = 'All the Epochs have been extracted';
 msgbox(message,'End of the analysis','warn','replace');
-
-
