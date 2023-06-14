@@ -16,7 +16,7 @@ for ii = 3:files_number
       
     if (strcmp(matrix_file(1,end-2:end),'mat') == 1) 
   
-      display(['Current file: ' matrix_file])
+      display(['File name: ' matrix_file])
   temp_save_name_dat = [temp_save_name_dat;{matrix_file}];
   
       track_subjects = track_subjects + 1;
@@ -173,16 +173,23 @@ samples_data = size(data_dss,1)/length(temp_save_name_dat);
  step_samples = samples_data;
  end_samples = samples_data;
  
+ for kk = 1:size(todss,1)
+
+     labels(kk,1) = {['DSS_' num2str(kk)]};
+
+ end
+
  for kk = 1:length(temp_save_name_dat)
  
-   data_exported.dss = fold(unfold(clean(start_samples:end_samples,:,:))*todss,size(clean(start_samples:end_samples,:,:),1));   % DSS components 
+data_exported.dss = fold(unfold(clean(start_samples:end_samples,:,:))*todss,size(clean(start_samples:end_samples,:,:),1));   % DSS components 
+  data_exported.eeg_data = mean(data_exported.dss,3)';
     data_exported.average_trials = mean(data_exported.dss,3)';
         data_exported.time_average = selected_file.data_exported.time_average;
                 data_exported.sampling_frequency = selected_file.data_exported.sampling_frequency;
                     data_exported.rotation_matrix = todss;
                         data_exported.fromdss = fromdss;
-                            data_exported.labels = selected_file.data_exported.labels;
-                                
+                            data_exported.labels = labels; %selected_file.data_exported.labels;
+                                                                
                                     %save([file_name_peaks_latencies '_DSS_' cell2mat(temp_save_name_dat(kk,:))],'data_exported')  
                                     save([cell2mat(temp_save_name_dat(kk,:)) '_DSS.mat'],'data_exported')
                                     
