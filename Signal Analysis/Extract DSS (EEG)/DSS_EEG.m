@@ -150,13 +150,20 @@ keep1=[];
 %             data_exported.rotation_matrix = todss;
 %                 save(matrix_file,'data_exported')  
  try
+    for kk = 1:size(dss_first_file_av,1)
+
+         labels(kk,1) = {['DSS_' num2str(kk)]};
+
+     end
+
+  data_exported.eeg_data = dss_first_file_av';
     data_exported.average_trials = dss_first_file_av';   
         data_exported.dss = dss_first_file;  
             data_exported.time_average = selected_file.data_exported.time_average;
                 data_exported.sampling_frequency = selected_file.data_exported.sampling_frequency;
                     data_exported.rotation_matrix = todss;
                         data_exported.fromdss = fromdss;
-                            data_exported.labels = selected_file.data_exported.labels;
+                            data_exported.labels = labels;%selected_file.data_exported.labels;
                                 data_exported.events_trigger = selected_file.data_exported.events_trigger;
                                     data_exported.events_type = selected_file.data_exported.events_type;
                                 
