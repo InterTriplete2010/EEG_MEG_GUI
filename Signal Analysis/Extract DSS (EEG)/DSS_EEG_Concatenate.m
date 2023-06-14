@@ -201,13 +201,14 @@ data_exported.dss = fold(unfold(clean(start_samples:end_samples,:,:))*todss,size
  end
      
  %Now let's save the concatenated data
- data_exported.dss = fold(unfold(clean)*todss,size(clean,1));   % DSS components  
-    data_exported.average_trials = mean(data_exported.dss,3)';
-          data_exported.time_average = [0:size(clean,1)-1]/selected_file.data_exported.sampling_frequency;
+data_exported.dss = fold(unfold(clean)*todss,size(clean,1));   % DSS components  
+   data_exported.eeg_data = mean(data_exported.dss,3)';   
+       data_exported.average_trials = mean(data_exported.dss,3)';
+          data_exported.time_average = (0:size(clean,1)-1)/selected_file.data_exported.sampling_frequency;
                 data_exported.sampling_frequency = selected_file.data_exported.sampling_frequency;
                     data_exported.rotation_matrix = todss;
                         data_exported.fromdss = fromdss;
-                            data_exported.labels = selected_file.data_exported.labels;
+                            data_exported.labels = labels; %selected_file.data_exported.labels;
                                 data_exported.order_files = temp_save_name_dat;
                 
                 save([file_name_peaks_latencies '_DSS_Concatenated_Data'],'data_exported')  
@@ -319,7 +320,16 @@ saveas(gcf,['DSS_Average_' file_name_peaks_latencies '.fig'])
 %% Plotting the z-score
 figure
 subplot(2,1,1)
-plot(1000*time_plot_DSS,mapstd(save_data)')
+try
+
+    plot(1000*time_plot_DSS,mapstd(save_data)')
+
+catch
+
+    plot(1000*time_plot_DSS,zscore(save_data')')
+
+end
+
 title('\bfZ-score of the DSS for the single subject');
 
 ylabel('\bfAmplitude (\muV)')
@@ -330,12 +340,28 @@ set(gca,'fontweight','bold')
 subplot(2,1,2)
 if size(save_data,2) > 1
     
-plot(1000*time_plot_DSS,mapstd(save_data)')
+    try
+
+        plot(1000*time_plot_DSS,mapstd(save_data)')
+
+    catch
+
+        plot(1000*time_plot_DSS,zscore(save_data')')
+
+    end
 
 else
     
-   plot(1000*time_plot_DSS,(mapstd(save_data)))
-    
+    try
+
+        plot(1000*time_plot_DSS,(mapstd(save_data)))
+
+    catch
+
+        plot(1000*time_plot_DSS,(zscore(save_data')))
+
+    end
+
 end
 
 title('\bfZ-score of the grand average of DSS across all the subjects');
@@ -376,5 +402,6 @@ warning on
 message = 'All the DSS and scalp map have been extracted and saved';
 
         msgbox(message,'DSS and scalp map saved','warn','replace');
+
 
 
