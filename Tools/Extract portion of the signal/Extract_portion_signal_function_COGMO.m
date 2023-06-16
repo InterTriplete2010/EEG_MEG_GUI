@@ -69,7 +69,7 @@ data_exported.time = (0:size(signal_extracted,2) - 1)/inputfileloaded.data_expor
 data_exported.sampling_frequency = inputfileloaded.data_exported.sampling_frequency;
 data_exported.trial_duration = (size(signal_extracted,2) - 1)/inputfileloaded.data_exported.sampling_frequency;
 data_exported.labels = inputfileloaded.data_exported.labels;
-data_exported.chanlocs = inputfileloaded.data_exported.chanlocs;
+%data_exported.chanlocs = inputfileloaded.data_exported.chanlocs;
 data_exported.events_trigger = inputfileloaded.data_exported.events_trigger;
 data_exported.events_type = inputfileloaded.data_exported.events_type;
 
