@@ -150,7 +150,7 @@ keep1=[];
 %             data_exported.rotation_matrix = todss;
 %                 save(matrix_file,'data_exported')  
  try
-    for kk = 1:size(dss_first_file_av,1)
+    for kk = 1:size(dss_first_file_av,2)
 
          labels(kk,1) = {['DSS_' num2str(kk)]};
 
