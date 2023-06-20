@@ -63,7 +63,10 @@ end
 sampling_frequency = struct_data.data_exported.sampling_frequency;
 
 if(time_w == 1)
-    
+
+     time_s_sample = 1;
+     time_e_sample = size(struct_data.data_exported.eeg_data,2);
+
     try
         
         time_d = struct_data.data_exported.time;
