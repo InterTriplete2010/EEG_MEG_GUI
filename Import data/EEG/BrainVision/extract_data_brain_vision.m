@@ -66,7 +66,7 @@ while ischar(temp_line)
     
         %Extract the channel names
         
-        if strcmp(temp_line(1:2),'Ch') & strcmp(temp_line(end-1:end),'µV')
+        if strcmp(temp_line(1:2),'Ch') & strcmp(temp_line(end-1:end),'ÂµV')
             
             temp_demarkation_points = strfind(temp_line, ',');
             EEG.chanlocs.labels(channel_labels) = {temp_line(strfind(temp_line, '=') + 1:temp_demarkation_points(1) - 1)};
@@ -159,9 +159,9 @@ fclose(file_marker);
 %Reading the eeg data
 file_marker = fopen(data_eeg,'r');
 
-fseek(file_marker, 0, 'eof');
+fseek(file_marker, 0, 'eof');   %Move the cursor at the end of the file to subsequently read the total number of samples
 samples_eeg = ftell(file_marker) / (EEG.nbchan * 4);    %Data in BrainVision are 32 bits => the number of points needs to be divided by N-Channels and 4 (4 = bytes) 
-fseek(file_marker, 0, 'bof');
+fseek(file_marker, 0, 'bof');   %Move the cursor at the beginning of the file to subsequently read the samples as 32 bit float and store them in a matrix of dimension EEG.nbchan x samples_eeg
 
 %eeg_data = fread(file_marker,inf,'int16');
 eeg_data = fread(file_marker, [EEG.nbchan, samples_eeg], 'float32=>float32');
