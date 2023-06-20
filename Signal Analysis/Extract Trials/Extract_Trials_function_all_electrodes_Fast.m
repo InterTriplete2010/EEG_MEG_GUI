@@ -262,7 +262,7 @@ end
 %% Checking if all the sweeps have been rejected
 if (isempty(save_single_trials))
     
-    close(gcf)
+    %close(gcf)
 
     message = ('All the sweeps have been rejected. Change the artifact rejection threshold if you want to accept at least one sweep');
         msgbox(message,'Operation terminated','warn');
