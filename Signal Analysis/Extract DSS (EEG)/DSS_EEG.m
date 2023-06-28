@@ -66,8 +66,8 @@ channel_biosemi = channel_biosemi(pos_sensors_keep);
   
     end
     
- data_dss = zeros(size(selected_file.data_exported.single_trials,3),size(selected_file.data_exported.single_trials,1),size(selected_file.data_exported.single_trials,2)); 
-  clean = zeros(size(selected_file.data_exported.single_trials,3),size(selected_file.data_exported.single_trials,1),size(selected_file.data_exported.single_trials,2)); 
+data_dss = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2)); 
+  clean = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2)); 
   
   
   %% Checking which channels have been removed
