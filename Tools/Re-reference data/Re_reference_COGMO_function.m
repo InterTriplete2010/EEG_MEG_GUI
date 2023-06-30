@@ -14,7 +14,7 @@ if (ears_mastoids_av == 1)
     
     new_ref = eeg_data(channel_selected_pos,:)/2;
     mat_file_eeg_re_reference(end-3:end) = [];
-save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_referenced_Average_Ears_Mastoids' channels_recorded(channel_selected_pos) '.' 'mat']);
+save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_referenced_Average_Ears_Mastoids_' channels_recorded(channel_selected_pos) '.' 'mat']);
 
 end
 
