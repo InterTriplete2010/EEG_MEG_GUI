@@ -120,8 +120,8 @@ xlabel('\bfTime(ms)')
   %Saving the peaks  
     if (strcmp(data_exported.ear,'Left') == 1)
         
-        save_picks(track_files,2:length_data) = num2cell(data_exported.time(locs(find_locs_positive(1:length_data))));
-    save_picks(track_files + 1,2:length_data) = num2cell(pks(find_locs_positive(1:length_data)));
+        save_picks(track_files,2:length_data + 1) = num2cell(data_exported.time(locs(find_locs_positive(1:length_data))));
+    save_picks(track_files + 1,2:length_data + 1) = num2cell(pks(find_locs_positive(1:length_data)));
     else
         
         save_picks(track_files,10:9 + length_data) = num2cell(data_exported.time(locs(find_locs_positive(1:length_data))));
