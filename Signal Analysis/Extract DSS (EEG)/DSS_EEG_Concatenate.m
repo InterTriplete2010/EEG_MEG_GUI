@@ -216,7 +216,7 @@ data_exported.dss = fold(unfold(clean)*todss,size(clean,1));   % DSS components
 figure
 for kk = 1:3
     subplot(3,1,kk)
-topoplot(fromdss(:,kk),channel_biosemi);
+topoplot(fromdss(kk,:),channel_biosemi);
 
 title(['\bfScalp Map of the DSS#' num2str(kk)])
 
