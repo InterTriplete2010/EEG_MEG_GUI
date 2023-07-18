@@ -175,7 +175,7 @@ keep1=[];
 figure
 for kk = 1:3
     subplot(3,1,kk)
-topoplot(fromdss(:,kk),channel_biosemi);
+topoplot(fromdss(kk,:),channel_biosemi);
 
 title(['\bfScalp Map of the DSS#' num2str(kk) ' - ' matrix_file(1:end-4)])
 
