@@ -343,7 +343,7 @@ for ll = 3:length(curr_dir)
                 xlabel('\bfFrequency (Hz)')
                 ylabel('\bfAmplitude (AU)')
                 
-                %Harmonic product spectrum calculate for r = 1 to 20.
+                %Harmonic product spectrum calculated for r = 1 to 20.
                 pp = 2*dft_val_1;
                 
                 subplot(2,1,2)
