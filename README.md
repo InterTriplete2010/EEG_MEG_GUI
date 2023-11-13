@@ -17,4 +17,4 @@ Please, note that scalp maps are plotted by using the Topoplot functions from ee
 
 I hope this GUI will be of some help to someone.
 
-If you need any assistance and/or find bugs, please contact me (Alex) at: pressalex@hotmail.com
+If you need any assistance and/or find bugs, please contact me (Ale) at: pressalex@hotmail.com
