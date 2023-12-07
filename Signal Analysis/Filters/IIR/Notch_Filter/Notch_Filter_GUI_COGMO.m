@@ -121,7 +121,7 @@ BW = Wo/str2double(get(handles.Q_Factor_Notch,'String'));
 decibel_notch_filter = str2double(get(handles.Decibel_Notch,'String'));
 
 %[num,den] = iirnotch_COGMO(Wo,BW,decibel_notch_filter);
-[num den] = iirnotch(Wo,BW);
+[num den] = iirnotch(Wo,BW,decibel_notch_filter);
 zp_option = get(handles.Zero_Phase_Option_Notch,'Value');
 eeg_filtered = Notch_Filter_Function_COGMO (num,den,eeg_data_filter,sampling_frequency_data,zp_option); 
 
