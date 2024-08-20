@@ -221,7 +221,7 @@ data_exported.time = time_d;
 data_exported.W = weights';
 data_exported.A = inv(weights');   %Inverse matrix to prejct out the ICA data;
 
-for gg = 1:size(data_exported.eeg_data,2)
+for gg = 1:size(data_exported.eeg_data,1)
    
    labels(gg) = {gg}; 
     
