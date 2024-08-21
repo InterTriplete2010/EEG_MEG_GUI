@@ -141,7 +141,7 @@ display(['Sweep# ' num2str(kk)]);
         
         if (mod(kk,2) == 1)
 
-            if (track_sweeps_pos <= max_N_sweeps/2)
+            if (track_sweeps_pos <= floor(max_N_sweeps/2))
 
                 track_sweeps_pos = track_sweeps_pos + 1;
                 save_single_trials(:,track_sweeps,:) = temp_eeg_rejection;
@@ -153,7 +153,7 @@ display(['Sweep# ' num2str(kk)]);
 
         else
 
-            if (track_sweeps_neg <= max_N_sweeps/2)
+            if (track_sweeps_neg <= floor(max_N_sweeps/2))
 
                 track_sweeps_neg = track_sweeps_neg + 1;
                 save_single_trials(:,track_sweeps,:) = temp_eeg_rejection;
