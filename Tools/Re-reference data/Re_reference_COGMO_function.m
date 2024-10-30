@@ -6,7 +6,7 @@ if (common_av == 1)
 
     new_ref = mean(eeg_data(:,:));
     mat_file_eeg_re_reference(end-3:end) = [];
-save_eeg = [mat_file_eeg_re_reference '_Re_referenced_Common_Average.mat'];
+save_eeg = [mat_file_eeg_re_reference '_Re_ref_CA.mat'];
 
 end
    
@@ -14,7 +14,7 @@ if (ears_mastoids_av == 1)
     
     new_ref = eeg_data(channel_selected_pos,:)/2;
     mat_file_eeg_re_reference(end-3:end) = [];
-save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_referenced_Average_Ears_Mastoids_' channels_recorded(channel_selected_pos) '.' 'mat']);
+save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_ref_Av_EM_' channels_recorded(channel_selected_pos) '.' 'mat']);
 
 end
 
@@ -22,7 +22,7 @@ if (single_channel == 1)
     
     new_ref = eeg_data(channel_selected_pos,:);
     mat_file_eeg_re_reference(end-3:end) = [];
-save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_referenced_' channels_recorded(channel_selected_pos) '.' 'mat']);
+save_eeg = cell2mat([mat_file_eeg_re_reference '_Re_ref_' channels_recorded(channel_selected_pos) '.' 'mat']);
 
 end
 
@@ -36,8 +36,17 @@ new_vector = [new_vector;temp_ref_vect];
 
 end
 
+%If a single channel was selected, do not include the channel used as a reference,
+%because it has zero value
+if (single_channel == 1)
+
+    new_vector(channel_selected_pos,:) = [];
+    load_eeg.data_exported.labels(channel_selected_pos) = [];
+
+end
+
 %Check if the old reference has to be added to the data
-if (add_old_reference_check == 1) && (common_av == 1 || single_channel == 1)
+if ((add_old_reference_check == 1) && (single_channel == 1))
     
    new_vector = [new_vector;-new_ref]; 
     
@@ -46,6 +55,7 @@ if (add_old_reference_check == 1) && (common_av == 1 || single_channel == 1)
     load_eeg.data_exported.labels(length(load_eeg.data_exported.labels) + 1) = {name_old_reference};
    
 end
+
 
 try
 
