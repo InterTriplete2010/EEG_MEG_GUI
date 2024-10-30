@@ -179,8 +179,8 @@ function CM_Rereference_COGMO_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-set(handles.Add_Old_Reference_COGMO,'Enable','on');
-set(handles.Old_Reference_Name_COGMO,'Enable','on');
+set(handles.Add_Old_Reference_COGMO,'Enable','off');
+set(handles.Old_Reference_Name_COGMO,'Enable','off');
 
 % Hint: get(hObject,'Value') returns toggle state of CM_Rereference_COGMO
 if(get(handles.CM_Rereference_COGMO,'Value') == 1)
