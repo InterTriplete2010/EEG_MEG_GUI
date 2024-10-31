@@ -162,13 +162,13 @@ catch
     
 end
 
-try
+%try
     
-data_exported.sensors_removed = file_to_be_filtered.data_exported.labels(sensors_to_remove);
+%data_exported.sensors_removed = file_to_be_filtered.data_exported.labels(sensors_to_remove);
 
-catch
+%catch
     
-end
+%end
 
 data_exported.events_trigger = file_to_be_filtered.data_exported.events_trigger;
 data_exported.events_type = file_to_be_filtered.data_exported.events_type;
