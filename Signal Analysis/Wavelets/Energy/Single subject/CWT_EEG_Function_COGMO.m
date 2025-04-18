@@ -82,7 +82,7 @@ sf = f0/7;
             
                sg(j,:) = fft(ond_signal(1,:))./H;  %Computes FFT of the Mother Wavelet and shift wave back to zero (see Fourier Transform Property)
                 
-                ener(j)=sqrt(sum(sg(j,:).*conj(sg(j,:))))/N; %Computes the energy of the wavelet
+                %ener(j)=sqrt(sum(sg(j,:).*conj(sg(j,:))))/N; %Computes the energy of the wavelet
                         freq(j)=f0;
                         
                         %sg(j,:) = ((fft(ond_signal(1,:))*2)/length(ond_signal))./H;  %Computes FFT of the Mother Wavelet and shift wave back to zero (see Fourier Transform Property)
