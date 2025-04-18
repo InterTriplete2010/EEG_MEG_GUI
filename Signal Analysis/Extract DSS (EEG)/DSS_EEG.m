@@ -107,9 +107,9 @@ clear cmat1;
 clear cmat2;
 
     
-    sumch=squeeze(sum(abs(data_dss(:,:,:))));
+    sumch=squeeze(sum(abs(data_dss(:,:,:)),2));
     
-        %data_dss(sumch(1,:)>1e3,:,:)=0;    %It is arbitrary
+        %data_dss(sumch(:,:)>1e3,:,:)=0;    %It is arbitrary
      
         for ll = 1:size(data_dss,3)
             
