@@ -15,7 +15,7 @@ for pp = 1:size(cwtfiledata,1)
   
     for hh = 1:size(cwtfiledata,2)
     
-cwtfiledata_dec(pp,hh,:) = resample(cwtfiledata(pp,hh,:),1,dec_fact);
+cwtfiledata_dec(pp,hh,:) = resample(squeeze(cwtfiledata(pp,hh,:)),1,dec_fact);
     
     end
 end
