@@ -325,7 +325,8 @@ number_of_triggers = length(data_eeg.data_exported.events_type);
 
 
 set(handles.Dir_Uploaded_cABR,'String',Files_Mat_file_selected);
-set(handles.Channel_to_Extract_cABR,'String',data_eeg.data_exported.labels)
+set(handles.Channel_to_Extract_cABR,'String',data_eeg.data_exported.labels);
+set(handles.Channel_to_Extract_cABR,'Value',1);
 
 track_trigger_number = 1;
 
