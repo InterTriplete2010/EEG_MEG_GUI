@@ -154,7 +154,7 @@ for kk = 1:size(triggers_analysis,2)
     try
      
     %% Analysis for the rarefraction
-    temp_eeg_rar = eeg_data_filtered(1,round(triggers_analysis(1,kk) + Seconds_Before_trigger*sampling_frequency):round(triggers_analysis(1,kk) + Last_sample_off_set_region*sampling_frequency));
+    temp_eeg_rar = eeg_data_filtered(1,triggers_analysis(1,kk) + round(Seconds_Before_trigger*sampling_frequency):triggers_analysis(1,kk) + round(Last_sample_off_set_region*sampling_frequency));
     
   if (kk == 1)
       
@@ -208,7 +208,7 @@ end
 %% This part of the code will be executed only if two different triggers were detected   
     %% Analysis for the compression
     try
-    temp_eeg_compr = eeg_data_filtered(1,round(triggers_analysis(2,kk) + Seconds_Before_trigger*sampling_frequency):round(triggers_analysis(2,kk) + Last_sample_off_set_region*sampling_frequency));
+    temp_eeg_compr = eeg_data_filtered(1,triggers_analysis(2,kk) + round(Seconds_Before_trigger*sampling_frequency):triggers_analysis(2,kk) + round(Last_sample_off_set_region*sampling_frequency));
         
     if (min(temp_eeg_compr) > artifact_neg_electrode && max(temp_eeg_compr) < artifact_pos_electrode && sweeps_compr < max_trials)
         
@@ -816,4 +816,5 @@ msgbox(message,'Sweeps Rejected','warn','replace');
 
 message = 'All the Epochs have been extracted';
 msgbox(message,'End of the analysis','warn','replace');
+
 
