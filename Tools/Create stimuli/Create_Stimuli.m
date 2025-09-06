@@ -198,10 +198,10 @@ y = A*sin(2*pi*f*t);
 %Plotting the time series and the FFT
 figure
 subplot(2,1,1)
-title('\bfTone Burst')
 plot(t,y)
 ylabel('\bfAmplitude')
 xlabel('\bfTime(s)')
+title('\bfTone Burst')
 
 subplot(2,1,2)
 pwelch(y,length(y),length(y)/2,length(y),sf)
@@ -210,8 +210,10 @@ set(gca,'fontweight','bold')
 
 %Saving the tone
 
-    audiowrite(['Tone_burst_Pos' num2str(f) '.wav'],y,sf)
-audiowrite(['Tone_burst_Neg' num2str(f) '.wav'],-y,sf)
+y_save = [y;y]'; 
+
+    audiowrite(['Tone_burst_Pos_' num2str(f) '.wav'],y_save,sf)
+audiowrite(['Tone_burst_Neg_' num2str(f) '.wav'],-y_save,sf)
 
 %Ramping and saving the ramped-tone
 ramping_type = get(handles.Ramping_Tones,'Value');
@@ -225,10 +227,10 @@ ramped_tone = AddTemporalRamps(y,rftime,sf,ramping_type - 2);
 %Plotting the time series and the FFT
 figure
 subplot(2,1,1)
-title('\bfRamped Tone Burst')
 plot(t,ramped_tone)
 ylabel('\bfAmplitude')
 xlabel('\bfTime(s)')
+title('\bfRamped Tone Burst')
 
 subplot(2,1,2)
 pwelch(ramped_tone,length(ramped_tone),length(ramped_tone)/2,length(ramped_tone),sf)
@@ -252,10 +254,10 @@ if (get(handles.Ampl_Mod_Tone,'Value') == 1)
      %Plotting the time series and the FFT for each channel
 figure
 subplot(2,1,1)
-title('\bfRamped Tone Burst')
 plot(t,mod_tone)
 ylabel('\bfAmplitude')
 xlabel('\bfTime(s)')
+title('\bfRamped Tone Burst')
 
 subplot(2,1,2)
 pwelch(mod_tone,length(mod_tone),length(mod_tone)/2,length(mod_tone),sf)
@@ -277,8 +279,43 @@ message = ('The tone has been created and saved');
 
         msgbox(message,'Operations completed','warn');
 
+else
+
+if (get(handles.Ampl_Mod_Tone,'Value') == 1)
+
+    for yy = 1:size(y_save,2)
+    
+     mod_tone(:,yy) = (1+(str2double(get(handles.Mod_Depth_Tone,'String'))/100)*sin(2*pi*t*str2double(get(handles.Mod_Freq_Tone,'String')))).*y_save(:,yy)';
+    
+     %Plotting the time series and the FFT for each channel
+figure
+subplot(2,1,1)
+plot(t,mod_tone)
+ylabel('\bfAmplitude')
+xlabel('\bfTime(s)')
+title('\bfTone Burst')
+
+subplot(2,1,2)
+pwelch(mod_tone,length(mod_tone),length(mod_tone)/2,length(mod_tone),sf)
+
+set(gca,'fontweight','bold')
+     
+    end
 end
 
+try
+audiowrite(['Mod_Tone_burst_Pos_' num2str(f) '.wav'],mod_tone,sf)
+audiowrite(['Mod_Tone_burst_Neg_' num2str(f) '.wav'],-mod_tone,sf)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+catch
+    
+end
+
+message = ('The tone has been created and saved');
+
+        msgbox(message,'Operations completed','warn');
+
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Carry frequency for the Tone Bursts
