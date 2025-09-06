@@ -216,6 +216,7 @@ number_of_triggers = length(data_eeg.data_exported.events_type);
 
 set(handles.EEG_Uploaded_Trials_COGMO,'String',Files_Mat_file_selected);
 set(handles.Channel_to_Extract_COGMO,'String',data_eeg.data_exported.labels)
+set(handles.Channel_to_Extract_COGMO,'Value',1);
 
 track_trigger_number = 1;
 
