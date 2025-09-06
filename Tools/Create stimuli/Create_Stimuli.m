@@ -192,7 +192,7 @@ sf = str2double(get(handles.SF_Tones_Burst,'String'));
 f = str2double(get(handles.Frequency_Tone_Burst,'String'));
 samples_tone = round(str2double(get(handles.Duration_Tone_Burst,'String'))*sf);
 
-t = [0:1/sf:samples_tone/sf];
+t = [0:samples_tone-1]./sf;
 y = A*sin(2*pi*f*t);
 
 %Plotting the time series and the FFT
