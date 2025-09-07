@@ -452,7 +452,7 @@ for numb_trig = 1:size(temp_ass,1)%length(str2num(get(handles.Tigger_Channels_ME
  
 end
 
-%Remove "zero" values, that correspond to non-triggers
+%Remove "zero" values, that corresponds to non-triggers
 
 time_trigg = [0:size(triggers_channels,2)-1]/data_exported.sampling_frequency;
  
