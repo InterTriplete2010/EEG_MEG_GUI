@@ -354,16 +354,29 @@ data_exported.trials_samples_extracted = {size(save_single_trials,2) size(save_s
 data_exported.channel_trials = channels_recorded;
 data_exported.trigger_used = trigger_selected;
 temp_av = squeeze(mean(save_single_trials,2));
-if (size(save_single_trials,1) == 1)
+data_exported.average_trials = zscore(temp_av')';
+%If only 1 channel is present, transpose the average to have the samples
+%organized in columns
+if(size(save_single_trials,1) < 2)
    
-    temp_av = temp_av';
+    data_exported.average_trials = data_exported.average_trials';
     
 end
-data_exported.average_trials = zscore(temp_av')';
 %data_exported.average_trials = squeeze(mean(save_single_trials,2));
 data_exported.single_trials = save_single_trials;
 data_exported.pos_single_trials = position_saved_sweeps_average';
-data_exported.grand_average_trials = zscore(mean(squeeze(mean(save_single_trials,2))));
+%Compute the grand-average across sensors only if there are more 
+%than 1 channel
+if(size(save_single_trials,1) > 1)
+    
+    data_exported.grand_average_trials = mean(squeeze(mean(save_single_trials,2)));
+    
+else
+    
+    data_exported.grand_average_trials = squeeze(mean(save_single_trials,2))';
+        
+end
+
 data_exported.art_threshold = {artifact_pos_electrode artifact_pos_electrode};
 data_exported.time_average = tt_mean;
 data_exported.onset_average = tt_mean(find_onset);
@@ -425,14 +438,27 @@ data_exported.trials_samples_extracted = {size(save_single_trials,2) size(save_s
 data_exported.channel_trials = channels_recorded;
 data_exported.trigger_used = trigger_selected;
 data_exported.average_trials = squeeze(mean(save_single_trials,2));
-if (size(save_single_trials,1) == 1)
+%If only 1 channel is present, transpose the average to have the samples
+%organized in columns
+if(size(save_single_trials,1) < 2)
    
     data_exported.average_trials = data_exported.average_trials';
     
 end
 data_exported.single_trials = save_single_trials;
 data_exported.pos_single_trials = position_saved_sweeps_average';
-data_exported.grand_average_trials = mean(squeeze(mean(save_single_trials,2)));
+%Compute the grand-average across sensors only if there are more 
+%than 1 channel
+if(size(save_single_trials,1) > 1)
+    
+    data_exported.grand_average_trials = mean(squeeze(mean(save_single_trials,2)));
+    
+else
+    
+    data_exported.grand_average_trials = squeeze(mean(save_single_trials,2))';
+        
+end
+
 data_exported.art_threshold = {artifact_neg_electrode artifact_pos_electrode};
 data_exported.time_average = tt_mean;
 data_exported.onset_average = tt_mean(find_onset);
@@ -530,6 +556,7 @@ else
     message = 'All the Epochs have been extracted. End of the analysis';    
     
 end
+
 
 
 
