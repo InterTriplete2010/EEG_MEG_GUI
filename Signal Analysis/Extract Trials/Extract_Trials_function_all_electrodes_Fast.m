@@ -163,17 +163,17 @@ if (length(tt_mean) ~= size(save_single_trials,3))
 end    
 
 
-%if length(tt_mean) > round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)
-%
-%    tt_mean(:,end - (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)) - 1) = [];
-%    save_single_trials(:,:,end - (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)) - 1) = [];
-%    
-%elseif length(tt_mean) < round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)
-%  
-%     tt_mean(:,end + (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = (length(tt_mean) + 1)./sampling_frequency;
-%    save_single_trials(:,:,end + (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = 0;
-%    
-%end
+% if length(tt_mean) > round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)
+% 
+%     save_single_trials(:,:,end - (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = [];
+%     tt_mean(:,end - (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = [];
+%     
+% elseif length(tt_mean) < round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency)
+%   
+%      tt_mean(:,end + (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = (length(tt_mean) + 1)./sampling_frequency;
+%     save_single_trials(:,:,end + (length(tt_mean) - round((Seconds_After_trigger - Seconds_Before_trigger)*sampling_frequency))) = 0;
+%     
+% end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %find_onset = find(tt_mean >= 0,1,'First');
