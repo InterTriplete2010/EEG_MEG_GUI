@@ -354,6 +354,11 @@ data_exported.trials_samples_extracted = {size(save_single_trials,2) size(save_s
 data_exported.channel_trials = channels_recorded;
 data_exported.trigger_used = trigger_selected;
 temp_av = squeeze(mean(save_single_trials,2));
+if (size(save_single_trials,1) == 1)
+   
+    temp_av = temp_av';
+    
+end
 data_exported.average_trials = zscore(temp_av')';
 %data_exported.average_trials = squeeze(mean(save_single_trials,2));
 data_exported.single_trials = save_single_trials;
@@ -420,6 +425,11 @@ data_exported.trials_samples_extracted = {size(save_single_trials,2) size(save_s
 data_exported.channel_trials = channels_recorded;
 data_exported.trigger_used = trigger_selected;
 data_exported.average_trials = squeeze(mean(save_single_trials,2));
+if (size(save_single_trials,1) == 1)
+   
+    data_exported.average_trials = data_exported.average_trials';
+    
+end
 data_exported.single_trials = save_single_trials;
 data_exported.pos_single_trials = position_saved_sweeps_average';
 data_exported.grand_average_trials = mean(squeeze(mean(save_single_trials,2)));
@@ -520,5 +530,6 @@ else
     message = 'All the Epochs have been extracted. End of the analysis';    
     
 end
+
 
 
