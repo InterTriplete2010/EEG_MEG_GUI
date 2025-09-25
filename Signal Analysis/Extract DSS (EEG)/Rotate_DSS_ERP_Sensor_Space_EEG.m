@@ -197,7 +197,6 @@ for kk = 1:size(event_data_indices,1)
     
 end
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Menu used to describe how to use the GUI to rotate the data back in the
 %sensor space
