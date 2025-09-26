@@ -22,7 +22,7 @@ function varargout = Rotate_DSS_ERP_Sensor_Space_EEG(varargin)
 
 % Edit the above text to modify the response to help Rotate_DSS_ERP_Sensor_Space_EEG
 
-% Last Modified by GUIDE v2.5 25-Sep-2025 08:55:35
+% Last Modified by GUIDE v2.5 25-Sep-2025 09:10:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -162,6 +162,9 @@ for kk = 1:length(temp_fields)
 
 end
 
+data_exported.labels_DSS = DSS_Selected.data_exported.labels;
+data_exported.labels = DSS_Selected.data_exported.labels_sensors;
+data_exported = rmfield(data_exported, 'labels_sensors');
 data_exported.sensors_single_sweeps = DSS_rotated_single_sweeps;
 data_exported.average_trials = DSS_rotated;
 data_exported.eeg_data = DSS_rotated;
@@ -207,4 +210,3 @@ function Rotate_DSS_ERP_Sensor_Space_Menu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Rotate_DSS_ERP_Sensor_Space_EEG_Help();
-
