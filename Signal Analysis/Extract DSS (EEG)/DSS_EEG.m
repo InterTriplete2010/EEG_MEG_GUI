@@ -1,4 +1,5 @@
-function DSS_EEG(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,file_name_peaks_latencies,sweeps_analysis_DSS)
+function DSS_EEG(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,...
+    file_name_peaks_latencies,sweeps_analysis_DSS,filter_DSS_var,hcf,lcf,order_f)
 
 cd(DSS_EEG_file_directory)
 
@@ -66,7 +67,7 @@ channel_biosemi = channel_biosemi(pos_sensors_keep);
   
     end
     
-data_dss = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2)); 
+ data_dss = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2)); 
   clean = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2)); 
   
   
@@ -84,14 +85,20 @@ data_dss = zeros(size(temp_data,3),size(temp_data,1),size(temp_data,2));
 
 %% Rearrenging the files for the DSS analysis
  %[bb aa] = butter(2,[2 8]/(selected_file.data_exported.sampling_frequency/2));
-  
+ 
+ if (filter_DSS_var == 1)
+
+     [bb_filter aa_filter] = butter(order_f,[hcf lcf]./(selected_file.data_exported.sampling_frequency./2));
+
+ end
+
    for hh = 1:size(temp_data,2)
        
         temp_data_rearrenge = squeeze(temp_data(:,hh,:))';
         
        %data_dss(:,:,hh) = filter(bb,aa,temp_data_rearrenge);
        data_dss(:,:,hh) = temp_data_rearrenge;
-        clean(:,:,hh) = temp_data_rearrenge;
+       clean(:,:,hh) = temp_data_rearrenge;
         
    end
     
@@ -107,17 +114,25 @@ clear cmat1;
 clear cmat2;
 
     
-    sumch=squeeze(sum(abs(data_dss(:,:,:)),2));
+    sumch=squeeze(sum(abs(data_dss(:,:,:))));
     
-        %data_dss(sumch(:,:)>1e3,:,:)=0;    %It is arbitrary
+        %data_dss(sumch(1,:)>1e3,:,:)=0;    %It is arbitrary
      
         for ll = 1:size(data_dss,3)
             
-            data_dss(sumch(1,:)>1e4,:,ll)=0;
+            data_dss(sumch(1,:)>1e4,:,ll) = 0;
+            
+            
+            if (filter_DSS_var == 1)
+                
+                data_dss(:,:,ll) = filtfilt(bb_filter,aa_filter,data_dss(:,:,ll));
+                
+            end
+            
         end
         
         
-     inducedclean=unfold(data_dss);
+    inducedclean=unfold(data_dss);
     cmat1(:,:)=inducedclean'*inducedclean;
     evokedclean=sum(data_dss,3);
     cmat2(:,:)=evokedclean'*evokedclean*size(clean,3)^2;
@@ -130,8 +145,8 @@ keep1=[];
 [todss,fromdss,ratio,pwr]=dss0(cmat1,cmat2,keep1,keep2);
 %todss=pad02D(todss,bad_channels);
 
-
-
+%todss = electrodes x components. That means that if todss is 26x17 => 26 electrodes and 17 components
+%fromdss = components x electrodes. That means that if fromdss is 17x26 => 17 components and 26 electrodes
 
 %% Saving the DSS and the rotation matrix of the DSS to be used for future analysis
  warning off
@@ -150,7 +165,8 @@ keep1=[];
 %             data_exported.rotation_matrix = todss;
 %                 save(matrix_file,'data_exported')  
  try
-    for kk = 1:size(dss_first_file_av,2)
+
+     for kk = 1:size(dss_first_file_av,2)
 
          labels(kk,1) = {['DSS_' num2str(kk)]};
 
@@ -163,9 +179,10 @@ keep1=[];
                 data_exported.sampling_frequency = selected_file.data_exported.sampling_frequency;
                     data_exported.rotation_matrix = todss;
                         data_exported.fromdss = fromdss;
-                            data_exported.labels = labels;%selected_file.data_exported.labels;
-                                data_exported.events_trigger = selected_file.data_exported.events_trigger;
-                                    data_exported.events_type = selected_file.data_exported.events_type;
+                            data_exported.labels = labels;
+                                data_exported.labels_sensors = selected_file.data_exported.labels;
+                                    data_exported.events_trigger = selected_file.data_exported.events_trigger;
+                                        data_exported.events_type = selected_file.data_exported.events_type;
                                 
  catch
      
@@ -285,7 +302,16 @@ saveas(gcf,['DSS_Average_' file_name_peaks_latencies '.fig'])
 %% Plotting the z-score
 figure
 subplot(2,1,1)
+try
+
 plot(1000*time_plot_DSS,mapstd(save_data)')
+
+catch
+
+    plot(1000*time_plot_DSS,zscore(save_data')')
+
+end
+
 title('\bfZ-score of the DSS for the single subject');
 
 ylabel('\bfAmplitude (\muV)')
@@ -296,11 +322,27 @@ set(gca,'fontweight','bold')
 subplot(2,1,2)
 if size(save_data,2) > 1
     
+    try
+
 plot(1000*time_plot_DSS,mapstd(save_data)')
+
+    catch
+
+        plot(1000*time_plot_DSS,zscore(save_data')')
+
+    end
 
 else
     
+    try
+
    plot(1000*time_plot_DSS,(mapstd(save_data)))
+
+    catch
+
+        plot(1000*time_plot_DSS,zscore(save_data'))
+
+    end
     
 end
 
