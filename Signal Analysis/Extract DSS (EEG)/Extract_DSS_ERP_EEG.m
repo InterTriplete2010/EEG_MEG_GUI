@@ -22,7 +22,7 @@ function varargout = Extract_DSS_ERP_EEG(varargin)
 
 % Edit the above text to modify the response to help Extract_DSS_ERP_EEG
 
-% Last Modified by GUIDE v2.5 14-Jan-2022 13:33:52
+% Last Modified by GUIDE v2.5 07-Jun-2023 17:46:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -96,13 +96,20 @@ file_name_peaks_latencies = get(handles.File_Name_Peaks_Latencies_DSS_EEG,'Strin
 
 sweeps_analysis_DSS = str2double(get(handles.Sweeps_DSS,'String'));
 
+filter_DSS_var = get(handles.Filter_DSS,'Value');
+hcf = str2double(get(handles.HCF_Filter,'String'));
+lcf = str2double(get(handles.LCF_Filter,'String'));
+order_f = str2double(get(handles.Order_Filter,'String'));
+
 if (get(handles.Conc_File_DSS,'Value') == 0)
 
-DSS_EEG(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,file_name_peaks_latencies,sweeps_analysis_DSS)
+DSS_EEG(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,file_name_peaks_latencies,...
+    sweeps_analysis_DSS,filter_DSS_var,hcf,lcf,order_f)
 
 else
 
-  DSS_EEG_Concatenate(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,file_name_peaks_latencies,sweeps_analysis_DSS)  
+  DSS_EEG_Concatenate(DSS_EEG_file_directory,start_p1_time,end_p1_time,start_N100_time,end_N100_time,start_P200_time,end_P200_time,...
+      file_name_peaks_latencies,sweeps_analysis_DSS)  
     
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -356,3 +363,86 @@ function Extract_DSS_ERP_EEG_Menu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Extract_DSS_ERP_EEG_Help();
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%High cut-off frequency
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function HCF_Filter_Callback(hObject, eventdata, handles)
+% hObject    handle to HCF_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of HCF_Filter as text
+%        str2double(get(hObject,'String')) returns contents of HCF_Filter as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function HCF_Filter_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to HCF_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Order of the filter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function Order_Filter_Callback(hObject, eventdata, handles)
+% hObject    handle to Order_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of Order_Filter as text
+%        str2double(get(hObject,'String')) returns contents of Order_Filter as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function Order_Filter_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to Order_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Low cut-off frequency
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function LCF_Filter_Callback(hObject, eventdata, handles)
+% hObject    handle to LCF_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of LCF_Filter as text
+%        str2double(get(hObject,'String')) returns contents of LCF_Filter as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function LCF_Filter_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to LCF_Filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%If checked, the data will be filtered before calculating the DSS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- Executes on button press in Filter_DSS.
+function Filter_DSS_Callback(hObject, eventdata, handles)
+% hObject    handle to Filter_DSS (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of Filter_DSS
