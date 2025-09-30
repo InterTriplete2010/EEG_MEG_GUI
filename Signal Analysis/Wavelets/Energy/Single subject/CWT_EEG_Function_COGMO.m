@@ -90,57 +90,60 @@ sf = f0/7;
                 %ener(j)=sqrt(sum(sg(j,:).*conj(sg(j,:)))); %Computes the energy of the wavelet
                 
                 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                
-                %% Saving the information about the lenght of each window
-                temp_threshold = 0.01;
-                [pks,locs] = findpeaks(real(ond(j,:)),'minpeakheight',temp_threshold);
-                warning off
-                while(isempty(pks))
-                    
-                    temp_threshold = temp_threshold - 0.01;
-                    [pks,locs] = findpeaks(real(ond(j,:)),'minpeakheight',temp_threshold);
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                
+%                 %% Saving the information about the lenght of each window
+%                 temp_threshold = 0.01;
+%                 [pks,locs] = findpeaks(real(ond(j,:)),'minpeakheight',temp_threshold);
+%                 warning off
+%                 while(isempty(pks))
+%                     
+%                     temp_threshold = temp_threshold - 0.01;
+%                     [pks,locs] = findpeaks(real(ond(j,:)),'minpeakheight',temp_threshold);
+%                 
+%                 end
+%                 
+%                 warning on
                 
-                end
+%                 find_window = zeros(1,2);
+%                 
+%                 %% Finding the first peak with 95% less of energy with respect to the first and last positive peaks of the mother wavelet
+%                 find_window_first = real(ond(j,locs(1):-1:1));
+%                 find_window_first_check = 1;
+%                 
+%                 for kk = 1:length(find_window_first)
+%                    
+%                     if ((pks(1) - find_window_first(1,kk))/pks(1) >= 0.95 & find_window_first_check == 1)
+%                     
+%                         find_window(1,1) = (locs(1) - kk);
+%                         find_window_first_check = 0;
+%                     
+%                     end
+%                 
+%                 end
+%                 
+%                     find_window_last = real(ond(j,locs(end):end));
+%                     find_window_last_check = 1;
+%                     
+%                     for kk = 1:length(find_window_last)
+%                    
+%                     if ((pks(end) - find_window_last(1,kk))/pks(end) >= 0.95 & find_window_last_check == 1)
+%                     
+%                         find_window(1,2) = (locs(end) + kk);
+%                         find_window_last_check = 0;
+%                     
+%                     end
+%                 
+%                     end
+%                     
+%               %Hamming window with 'Periodic' option selected for DFT/FFT purposes. Use 'symmetrical' for filtering,only      
+%                hamm_window = hamming(find_window(2) - find_window(1),'periodic');
+%                length_window(1,j) = (hamm_window'*hamm_window);
+%                 %length_window(1,j) = sqrt((hamm_window'*hamm_window));
+%                                 
+%                 sg(j,:) = sg(j,:)/length_window(1,j);
                 
-                warning on
-                
-                find_window = zeros(1,2);
-                
-                %% Finding the first peak with 95% less of energy with respect to the first and last positive peaks of the mother wavelet
-                find_window_first = real(ond(j,locs(1):-1:1));
-                find_window_first_check = 1;
-                
-                for kk = 1:length(find_window_first)
-                   
-                    if ((pks(1) - find_window_first(1,kk))/pks(1) >= 0.95 & find_window_first_check == 1)
-                    
-                        find_window(1,1) = (locs(1) - kk);
-                        find_window_first_check = 0;
-                    
-                    end
-                
-                end
-                
-                    find_window_last = real(ond(j,locs(end):end));
-                    find_window_last_check = 1;
-                    
-                    for kk = 1:length(find_window_last)
-                   
-                    if ((pks(end) - find_window_last(1,kk))/pks(end) >= 0.95 & find_window_last_check == 1)
-                    
-                        find_window(1,2) = (locs(end) + kk);
-                        find_window_last_check = 0;
-                    
-                    end
-                
-                    end
-                    
-              %Hamming window with 'Periodic' option selected for DFT/FFT purposes. Use 'symmetrical' for filtering,only      
-               hamm_window = hamming(find_window(2) - find_window(1),'periodic');
-               length_window(1,j) = (hamm_window'*hamm_window);
-                %length_window(1,j) = sqrt((hamm_window'*hamm_window));
-                
-                sg(j,:) = sg(j,:)/length_window(1,j);
+                %Compensating for the fact that at each frequency we have different integration windows
+                sg(j,:) = 2*sg(j,:)./max(abs(sg(j,:)));
                 
                 track_freq = track_freq + 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                
@@ -680,3 +683,4 @@ data_exported.labels = electrode_name_selected;
 save([EEG_cwt_file_selected(1:end-4) '_Energy_Amplitude_Wavelets.mat'],'data_exported')
 
 cd ..
+
