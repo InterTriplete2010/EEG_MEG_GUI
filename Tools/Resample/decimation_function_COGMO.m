@@ -58,7 +58,17 @@ end
 
 try
     
-data_exported.events_trigger = round((file_to_be_decimated.data_exported.events_trigger)/decimation_factor);
+%Find the position of the triggers based on the new sampling rate    
+temp_time_trigg = file_to_be_decimated.data_exported.events_trigger./file_to_be_decimated.data_exported.sampling_frequency;    
+pos_trig = zeros(1,length(temp_time_trigg));
+
+for kk = 1:length(temp_time_trigg)
+    
+    pos_trig(1,kk) = find(temp_time_trigg(1,kk) >= data_exported.time,1,'last');
+    
+end
+
+data_exported.events_trigger = pos_trig;    %round((file_to_be_decimated.data_exported.events_trigger)/decimation_factor);
 data_exported.events_type = file_to_be_decimated.data_exported.events_type;
 
 catch
@@ -80,4 +90,5 @@ save (save_eeg,'data_exported','-v7.3')
 message = (['The data have been successfully resampled. The new sampling frequency is: ' num2str(sampling_frequency_decimation)]);
 
         msgbox(message,'Resampling','warn');
+
 
