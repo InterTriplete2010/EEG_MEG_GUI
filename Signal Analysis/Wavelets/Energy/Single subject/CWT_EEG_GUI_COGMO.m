@@ -403,22 +403,24 @@ for tt = 3:size(current_dir,1)
         high_freq = str2double(get(handles.High_Freq_CWT_COGMO,'String'));
         
         
-        try
-            
-            %"cwtfileloaded.data_exported.events_trigger - 1" means that it
-            %reads the first trigger and subtracts one sample to compensate for the
-            %fact that the first sample plotted is "zero" seconds;
-            events_trigger = ((cwtfileloaded.data_exported.events_trigger - 1)/sampling_frequency);
-            
-            find_trig = find(events_trigger >= (startT./sampling_frequency) & events_trigger <= (endT./sampling_frequency));
-            
-            events_trigger = events_trigger(find_trig);
-            
-        catch
-            
-            events_trigger = [];
-            
-        end
+       %         try
+%             
+%             %"cwtfileloaded.data_exported.events_trigger - 1" means that it
+%             %reads the first trigger and subtracts one sample to compensate for the
+%             %fact that the first sample plotted is "zero" seconds;
+%             events_trigger = ((cwtfileloaded.data_exported.events_trigger - 1)/sampling_frequency);
+%             
+%             find_trig = find(events_trigger >= (startT./sampling_frequency) & events_trigger <= (endT./sampling_frequency));
+%             
+%             events_trigger = events_trigger(find_trig);
+%             
+%         catch
+%             
+%             events_trigger = [];
+%             
+%         end
+        
+ events_trigger = [];
         
         step_wavelets = str2double(get(handles.Step_Wavelets,'String'));
         
