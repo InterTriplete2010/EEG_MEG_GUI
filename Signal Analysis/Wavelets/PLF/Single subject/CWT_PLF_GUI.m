@@ -352,7 +352,7 @@ elseif (get(handles.Pitch_TFS_PLF,'Value') == 3)
         
     else
         
-         cwtfiledata(ll,:,:) = squeeze(cwtfileloaded.data_exported.dss(:,electrode_selected_plf,:))';
+         cwtfiledata = squeeze(cwtfileloaded.data_exported.dss(:,electrode_selected_plf,:))';
   
         
     end
