@@ -70,7 +70,7 @@ hold off
 xlabel('\bfTime (s)')
 ylabel('\bfAmplitude (A.U.)')
 
-title(['\bfTarget Stimulus and its Envelope of: ' wav_file_selected(1,1:end-4)])
+title(['Target Stimulus and its Envelope of: ' wav_file_selected(1,1:end-4)], 'interpreter', 'none')
 
 legend('Target Stimulus','+Envelope','-Envelope')
 
@@ -121,7 +121,7 @@ hold off
 xlabel('\bfTime (s)')
 ylabel('\bfAmplitude (A.U.)')
 
-title(['\bfBackground Noise Stimulus and its Envelope of: ' wav_file_selected_noise(1,1:end-4)])
+title(['Background Noise Stimulus and its Envelope of: ' wav_file_selected_noise(1,1:end-4)], 'interpreter', 'none')
 
 legend('Target Stimulus','+Envelope','-Envelope')
 
@@ -463,3 +463,4 @@ cd(mat_file_directory)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 end
+
