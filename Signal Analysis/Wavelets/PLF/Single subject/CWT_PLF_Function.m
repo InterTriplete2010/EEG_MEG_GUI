@@ -348,11 +348,11 @@ contourf(1000*time_domain,frequency_range,abs(squeeze(Final_PLF(gg,:,:))))
         
         if (size(Final_PLF,1) > 1)
             
-    title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(gg)]);   
+    title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(gg)], 'interpreter', 'none');   
    
         else
             
-            title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(electrode_selected_plf)]);
+            title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(electrode_selected_plf)], 'interpreter', 'none');
         
         end
     
@@ -360,11 +360,11 @@ contourf(1000*time_domain,frequency_range,abs(squeeze(Final_PLF(gg,:,:))))
     
         if (size(Final_PLF,1) > 1)
             
-        title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(gg))]);   
+        title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(gg))], 'interpreter', 'none');   
         
         else
            
-            title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(electrode_selected_plf))]);   
+            title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(electrode_selected_plf))], 'interpreter', 'none');   
             
         end
         
@@ -427,11 +427,11 @@ subplot(2,1,1)
               
               if (size(Final_PLF,1) > 1)
                   
-                  title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(gg)]);
+                  title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(gg)], 'interpreter', 'none');
                   
               else
                   
-                  title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(electrode_selected_plf)]);
+                  title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(electrode_selected_plf)], 'interpreter', 'none');
                   
               end
               
@@ -439,11 +439,11 @@ subplot(2,1,1)
               
               if (size(Final_PLF,1) > 1)
                   
-                  title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(gg))]);
+                  title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(gg))], 'interpreter', 'none');
                   
               else
                   
-                  title(['\bfPLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(electrode_selected_plf))]);
+                  title(['PLF of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(electrode_selected_plf))], 'interpreter', 'none');
                   
               end
               
@@ -527,6 +527,7 @@ end
 
 
 cd ..
+
 
 
 
