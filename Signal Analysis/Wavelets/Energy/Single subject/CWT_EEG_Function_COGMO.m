@@ -304,12 +304,12 @@ subplot(2,1,1)
         
         if(size(cwtfiledata,1) > 1)
             
-            title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)]);   
+            title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)], 'interpreter', 'none');   
    
             
         else
             
-    title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected]);   
+    title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected], 'interpreter', 'none');   
    
         end
     
@@ -317,11 +317,11 @@ subplot(2,1,1)
     
         if(size(cwtfiledata,1) > 1)
             
-             title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))]); 
+             title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))], 'interpreter', 'none'); 
             
         else
             
-        title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)]);   
+        title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)], 'interpreter', 'none');   
            
         end
         
@@ -398,11 +398,11 @@ subplot(2,1,1)
         
         if(size(cwtfiledata,1) > 1)
             
-            title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)]); 
+            title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)], 'interpreter', 'none'); 
             
         else
             
-    title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected]);   
+    title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected], 'interpreter', 'none');   
    
         end
     
@@ -410,11 +410,11 @@ subplot(2,1,1)
     
         if(size(cwtfiledata,1) > 1)
             
-             title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))]);   
+             title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))], 'interpreter', 'none');   
             
         else
             
-        title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)]);   
+        title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)], 'interpreter', 'none');   
            
         end
         
@@ -491,11 +491,11 @@ subplot(2,1,1)
         
         if(size(cwtfiledata,1) > 1)
             
-            title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)]);   
+            title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)], 'interpreter', 'none');   
             
         else
         
-    title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected]);   
+    title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected], 'interpreter', 'none');   
    
         end
     
@@ -503,11 +503,11 @@ subplot(2,1,1)
     
         if(size(cwtfiledata,1) > 1)
            
-            title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))]);  
+            title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))], 'interpreter', 'none');  
             
         else
         
-        title(['\bfEnergy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)]);   
+        title(['Energy of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)], 'interpreter', 'none');   
         
         end
         
@@ -583,11 +583,11 @@ subplot(2,1,1)
         
         if(size(cwtfiledata,1) > 1)
             
-            title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)]); 
+            title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected(elec_wav)], 'interpreter', 'none'); 
             
         else
             
-    title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected]);   
+    title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' electrode_name_selected], 'interpreter', 'none');   
    
         end
     
@@ -595,11 +595,11 @@ subplot(2,1,1)
     
         if(size(cwtfiledata,1) > 1)
             
-            title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))]);   
+            title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected(elec_wav))], 'interpreter', 'none');   
             
         else
             
-        title(['\bfAmplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)]);   
+        title(['Amplitude of ' EEG_cwt_file_selected(1:end-4) ' ' cell2mat(electrode_name_selected)], 'interpreter', 'none');   
            
         end
         
@@ -683,4 +683,5 @@ data_exported.labels = electrode_name_selected;
 save([EEG_cwt_file_selected(1:end-4) '_Energy_Amplitude_Wavelets.mat'],'data_exported')
 
 cd ..
+
 
