@@ -1,8 +1,8 @@
 %% This algorithm is based on the following paper:
 
-% A. Schlögla, C. Keinrathb, D. Zimmermannb, R. Schererb, R. Leebb, G. Pfurtscheller
+% A. SchlÃ¶gla, C. Keinrathb, D. Zimmermannb, R. Schererb, R. Leebb, G. Pfurtscheller
 % "A fully automated correction method of EOG artifacts in EEG recordings"
-% Clinical Neurophysiology, Volume 118, Issue 1, January 2007, Pages 98–104
+% Clinical Neurophysiology, Volume 118, Issue 1, January 2007, Pages 98â€“104
 
 function [save_cleaned_eeg] = eye_movement_correction_function_COGMO(eeg_to_be_corrected,eeg_to_be_corrected_data,vertical_eye_selected,...
     horizontal_eye_selected,vertical_eye_selected_weights,horizontal_eye_selected_weights,data_selected_weights);
@@ -37,7 +37,7 @@ hold on
 plot(tt,eye_movement_corrected_eeg,'r')
 hold off
 
-title(eeg_to_be_corrected.data_exported.labels(kk))
+title(eeg_to_be_corrected.data_exported.labels(kk),'interpreter', 'none')
 
 legend('Before correction','After correction')
 
@@ -72,5 +72,6 @@ eeg_to_be_corrected_data([32,61,62,63,64],:) = [];
 
 SNR_all = 10*log10(sum(sum(save_cleaned_eeg.^2))/ sum(sum((save_cleaned_eeg - eeg_to_be_corrected_data).^2)))
 %}
+
 
 
