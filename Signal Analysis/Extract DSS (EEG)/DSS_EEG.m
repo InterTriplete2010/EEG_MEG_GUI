@@ -202,7 +202,7 @@ for kk = 1:3
     subplot(3,1,kk)
 topoplot(fromdss(kk,:),channel_biosemi);
 
-title(['Scalp Map of the DSS#' num2str(kk) ' - ' matrix_file(1:end-4)], 'interpreter', 'none')
+title(['\bfScalp Map of the DSS#' num2str(kk) ' - ' matrix_file(1:end-4)])
 
 colorbar
    
@@ -392,6 +392,7 @@ warning on
 message = 'All the DSS and scalp map have been extracted and saved';
 
         msgbox(message,'DSS and scalp map saved','warn','replace');
+
 
 
 
