@@ -53,7 +53,7 @@ for tt = 1:size(electrode_names_rms,1)
     
     figure
     plot(time_av,temp_data)
-    title(cell2mat(electrode_names_rms(tt)))
+    title(cell2mat(electrode_names_rms(tt)), 'interpreter', 'none')
     hold on
     
     for hh = 1:loops_rms
@@ -94,4 +94,5 @@ end
 
 %Saving the results in an excel file
 xlswrite ([EEG_rms_file_selected(1:end-4) '_rms.xlsx'],save_rms)
+
 
