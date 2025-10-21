@@ -100,7 +100,7 @@ axis tight
 end
 
     
-title(['\bfEEG - ' mat_file_eeg_plot],'FontSize',18);   
+title(['EEG - ' mat_file_eeg_plot],'FontSize',18, 'interpreter', 'none');   
 
 get_axis = get(gca);
 
@@ -112,3 +112,4 @@ get_axis = get(gca);
     
         
     time_duration = samples/sampling_frequency;
+
