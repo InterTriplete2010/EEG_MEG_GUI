@@ -213,13 +213,13 @@ elseif ((get(handles.Check_Channels_MEG,'Value') ~= 1 && get(handles.Check_Windo
     
     elseif ((get(handles.Check_Channels_MEG,'Value') == 1 && get(handles.Check_Window_MEG,'Value') ~= 1))
     
-    [MEG_data, Info_MEG] = sqdread(SQD_file_selected,'Channels',Channels_to_be_extracted,'Format','double');
+    [MEG_data, Info_MEG] = sqdread(SQD_file_selected,'Channels',Channels_to_be_extracted - 1,'Format','double');
     
     MEG.data = MEG_data';
     
     elseif ((get(handles.Check_Channels_MEG,'Value') == 1 && get(handles.Check_Window_MEG,'Value') == 1))
     
-    [MEG_data, Info_MEG] = sqdread(SQD_file_selected,'Channels',Channels_to_be_extracted,'Samples',[Time_Window_to_be_extracted(1) Time_Window_to_be_extracted(end)],'Format','double');
+    [MEG_data, Info_MEG] = sqdread(SQD_file_selected,'Channels',Channels_to_be_extracted - 1,'Samples',[Time_Window_to_be_extracted(1) Time_Window_to_be_extracted(end)],'Format','double');
     
     MEG.data = MEG_data';
     
