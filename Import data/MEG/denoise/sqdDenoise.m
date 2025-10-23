@@ -544,15 +544,15 @@ combinedOutput = [cleanOut magneticRefChannelsOut triggerChannelsOut];
 
 function zeroFirstAndLastShifts(sqdTemplate, destinationFile, offset1, offset2, numSamples)
 
-zeroOut = zeros(offset1, 157);
+zeroOut = zeros(offset1, 158);  %Adding an additonal channel, because sqdwrite seems to skip the last channel when saving data
 insertLow = 1;
 insertHigh = offset1;
 
 sqdwrite(sqdTemplate,destinationFile,'Action','Overwrite','Channels',...
-    [0:156],'Samples',[insertLow insertHigh], 'Data', zeroOut);
+    [0:157],'Samples',[insertLow insertHigh], 'Data', zeroOut);
 
-zeroOut = zeros(offset2, 157);
+zeroOut = zeros(offset2, 158);
 insertLow = numSamples - offset2 + 1;
 insertHigh = numSamples;
 sqdwrite(sqdTemplate,destinationFile,'Action','Overwrite','Channels',...
-    [0:156],'Samples',[insertLow insertHigh], 'Data', zeroOut);
+    [0:157],'Samples',[insertLow insertHigh], 'Data', zeroOut);
