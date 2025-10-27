@@ -8,7 +8,7 @@ figure
 subplot(2,1,1)
     pwelch(eegfiledata,round(window_variable*sampling_frequency),round(noverlap_variable*sampling_frequency),round(nfft_variable*sampling_frequency),sampling_frequency);
         
-    title(['\bfPower Spectral Density Estimate via PWelch of channel: ' channel_name]);
+    title(['\bfPower Spectral Density Estimate via PWelch of channel: ' channel_name],'interpreter', 'none');
     
     ylabel('\bfPower/frequency (dB/Hz)')
 
@@ -98,3 +98,4 @@ catch
  end
 
 end
+
