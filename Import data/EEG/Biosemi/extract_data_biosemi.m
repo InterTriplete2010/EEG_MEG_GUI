@@ -5,7 +5,7 @@
 %% See these links for a description of the BDF (https://www.biosemi.com/faq/file_format.htm)
 %% and EDF (https://edfrw.readthedocs.io/en/latest/specifications.html) format
 
-%Biosemi range: 524 mV (-262,144 to +262,143 µV) (http://psychophysiology.cpmc.columbia.edu/Software/PolyRex/faq.html)
+%Biosemi range: 524 mV (-262,144 to +262,143 ÂµV) (http://psychophysiology.cpmc.columbia.edu/Software/PolyRex/faq.html)
 
 % Description of the BDF Header:	
 %1) 8 bytes	Byte 1: "255" (non ascii)	Byte 1: "0" (ASCII)	Identification code
@@ -431,7 +431,9 @@ end
    
 end
 
-%% Rerefencing the data
+%% Rerefencing the EEG data, but not the sensor data. 
+%% The code will look for sensors with the following names: 1) "GSR", 2) "Temp", 3) "Pleth", 4) "Mic", 5) "Photo", 6)"Switch", 
+%% which have been designated by Biosemi. Sensor temperature ("Temp") will also be divided by 1000, as described in Biosemi documentation
 if (reference_channel == 0)
     
        
@@ -440,10 +442,42 @@ if (reference_channel == 0)
 else
 
     try
+        %%Find the indeces of the sensors, if any is present
+        index_sensors = [];
+        sensors_names = {'GSR';'Temp';'Pleth';'Mic';'Photo';'Switch'}; 
+        sensors_to_ref = (1:size(EEG.data,1));
+        sensor_temp = -1;
+        for ll = 1:length(sensors_names)
+            
+            for gg = 1:size(EEG.data,1)
+                
+                if(strcmp(cell2mat(sensors_names(ll)),cell2mat(EEG.chanlocs(gg).labels)))
+                    
+                    index_sensors = [index_sensors;gg];
+                    
+                    if (ll == 2)
+                        
+                        sensor_temp = gg;
+                        
+                    end
+                    
+                    break;
+                    
+                end
+            end
+        end
+        
+        sensors_to_ref(:,index_sensors) = [];
         
         if(~isempty(reference_channel))
 
-    EEG.data = EEG.data - repmat(mean(EEG.data(reference_channel,:),1), [size(EEG.data,1) 1]);  %Rereference the data
+    EEG.data(sensors_to_ref,:) = EEG.data(sensors_to_ref,:) - repmat(mean(EEG.data(reference_channel,:),1), [size(EEG.data,1) - length(index_sensors) 1]);  %Rereference the data
+    
+    if (sensor_temp ~= -1)
+       
+        EEG.data(sensor_temp,:) = EEG.data(sensor_temp,:)./1000;
+        
+    end
     
         end
 
