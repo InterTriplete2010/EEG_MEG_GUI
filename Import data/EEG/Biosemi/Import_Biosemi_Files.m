@@ -229,6 +229,10 @@ if (get(handles.Remove_First_Trigger_Biosemi,'Value')) == 1
 end
 
 catch
+
+    events_type = [];
+    events_trigger = [];
+    events_status = [];
     
 end
     
@@ -484,3 +488,4 @@ function Help_Import_Biosemi_Menu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Help_Import_Biosemi();
+
