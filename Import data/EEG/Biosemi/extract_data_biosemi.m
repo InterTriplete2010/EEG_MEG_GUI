@@ -161,13 +161,52 @@ end
 
 %Step 12
 %Read Nchannels*80 bytes (ASCII)
- step_12 = fread(bdf_file,EEG.nbchan*80);
- EEG.byte_12 = {char(step_12)};
+  step_12 = fread(bdf_file,EEG.nbchan*80);
+  EEG.byte_12 = {char(step_12)};
 
 %Step 13
-%Read Nchannels*8 bytes (ASCII)
+%Read Nchannels*8 bytes (ASCII) - Extract the label of each physical
+%channel
  step_13 = fread(bdf_file,EEG.nbchan*8);
  EEG.byte_13 = {char(step_13)};
+ 
+ temp_chan = [];
+ temp_chan = cell2mat(EEG.byte_13);
+ 
+start_count = 0;
+flag_count = 1;
+string_labels = string(temp_chan);
+count_chars = 1;
+kk = 1;
+
+while (kk < EEG.nbchan)
+    
+      while ~strcmp(string_labels(count_chars),' ')
+        
+         if flag_count == 1
+            
+           start_count = count_chars;  
+             flag_count = 0;
+         end
+         
+         count_chars = count_chars + 1;
+         
+      end
+     
+      if flag_count == 0 & kk < EEG.nbchan  %The last channel is the status channel, which is the trigger, so it doesn't have to be included
+               
+          count_chars = count_chars - 1;
+          
+          EEG.physic_dimen_chan(kk).labels = {temp_chan(start_count:count_chars)'};
+            
+          flag_count = 1;
+          
+          kk = kk + 1;
+          
+      end
+     
+      count_chars = count_chars + 1;
+end
  
  %Step 14
 %Read Nchannels*8 bytes (ASCII)
@@ -433,7 +472,8 @@ end
 
 %% Rerefencing the EEG data, but not the sensor data. 
 %% The code will look for sensors with the following names: 1) "GSR", 2) "Temp", 3) "Pleth", 4) "Mic", 5) "Photo", 6)"Switch", 
-%% which have been designated by Biosemi. Temperature sensor ("Temp") will be divided by 1000 to convert it into Celsius.
+%% which have been designated by Biosemi. Temperature sensor ("Temp") will be divided by 1000 to convert it into Celsius. GSR will be converted into uS (divide by 1000), 
+%%to be consistent with the literature that reports the data in uS and not in nS.
 if (reference_channel == 0)
     
        
@@ -446,7 +486,9 @@ else
         index_sensors = [];
         sensors_names = {'GSR';'Temp';'Pleth';'Mic';'Photo';'Switch'}; 
         sensors_to_ref = (1:size(EEG.data,1));
+        sensor_gsc = -1;
         sensor_temp = -1;
+        
         for ll = 1:length(sensors_names)
             
             for gg = 1:size(EEG.data,1)
@@ -454,7 +496,15 @@ else
                 if(strcmp(cell2mat(sensors_names(ll)),cell2mat(EEG.chanlocs(gg).labels)))
                     
                     index_sensors = [index_sensors;gg];
+                   
+                    %Save the index of the GSR
+                    if (ll == 1)
+                       
+                        sensor_gsc = gg;
+                        
+                    end
                     
+                    %Save the index of the temperature sensor
                     if (ll == 2)
                         
                         sensor_temp = gg;
@@ -473,9 +523,19 @@ else
 
     EEG.data(sensors_to_ref,:) = EEG.data(sensors_to_ref,:) - repmat(mean(EEG.data(reference_channel,:),1), [size(EEG.data,1) - length(index_sensors) 1]);  %Rereference the data
     
+    %Converting GSR into uS
+    if (sensor_gsc ~= -1)
+       
+        EEG.data(sensor_gsc,:) = EEG.data(sensor_gsc,:)./1000;
+        EEG.physic_dimen_chan(sensor_gsc).labels = 'uS';
+        
+    end
+    
+    %Converting temperature into Celsius
     if (sensor_temp ~= -1)
        
         EEG.data(sensor_temp,:) = EEG.data(sensor_temp,:)./1000;
+        EEG.physic_dimen_chan(sensor_temp).labels = 'Celsius';
         
     end
     
@@ -495,4 +555,3 @@ end
 EEG.nbchan = EEG.nbchan - 1;
 
  fclose(bdf_file);  %close the binary file
-
