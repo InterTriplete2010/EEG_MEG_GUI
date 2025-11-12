@@ -274,8 +274,8 @@ data_exported.reference_channel = {reference_channel};
 data_exported.trial_duration = (EEG.pnts - 1)/EEG.srate;
 data_exported.labels = labels_electrodes;
 data_exported.chanlocs = EEG.chanlocs;
-data_exported.physical_dimension_channels = EEG.byte_13;
 data_exported.resolution = EEG.resolution;
+data_exported.physical_dimension_channels = EEG.physic_dimen_chan;
 data_exported.events_trigger = events_trigger;
 data_exported.events_type = events_type;
 data_exported.events_status = events_status;
@@ -489,5 +489,6 @@ function Help_Import_Biosemi_Menu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Help_Import_Biosemi();
+
 
 
