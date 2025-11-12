@@ -433,7 +433,7 @@ end
 
 %% Rerefencing the EEG data, but not the sensor data. 
 %% The code will look for sensors with the following names: 1) "GSR", 2) "Temp", 3) "Pleth", 4) "Mic", 5) "Photo", 6)"Switch", 
-%% which have been designated by Biosemi. Sensor temperature ("Temp") will also be divided by 1000, as described in Biosemi documentation
+%% which have been designated by Biosemi. Temperature sensor ("Temp") will be divided by 1000 to convert it into Celsius.
 if (reference_channel == 0)
     
        
@@ -495,3 +495,4 @@ end
 EEG.nbchan = EEG.nbchan - 1;
 
  fclose(bdf_file);  %close the binary file
+
