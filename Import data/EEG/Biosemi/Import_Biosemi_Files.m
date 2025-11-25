@@ -266,7 +266,7 @@ try
     
   
 data_exported.eeg_data = double(EEG.data); 
-data_exported.channels = EEG.nbchan;
+data_exported.channels = size(EEG.data,1);%EEG.nbchan;
 data_exported.samples = EEG.pnts;
 data_exported.sampling_frequency = EEG.srate;
 data_exported.time = (0:size(EEG.data,2)-1)./EEG.srate;
@@ -489,6 +489,7 @@ function Help_Import_Biosemi_Menu_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 Help_Import_Biosemi();
+
 
 
 
