@@ -21,11 +21,11 @@ for kk = 1:length(standard_stimuli_files)
        
        if(abs_val == 1)
 
-           mkdir(['MME_Results_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
+           mkdir(['MMN_Results_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
 
        else
 
-           mkdir(['MME_Results_NO_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
+           mkdir(['MMN_Results_NO_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
 
        end
 
@@ -116,12 +116,12 @@ for kk = 1:length(standard_stimuli_files)
 
     if (abs_val == 1)
 
-        cd(['MME_Results_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
+        cd(['MMN_Results_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
         save([temp_standard_file(1:end-4) '_' temp_deviant_file(1:end-4) '_Absolute_Value.mat'],'data_exported')
 
     else
 
-         cd(['MME_Results_NO_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
+         cd(['MMN_Results_NO_Absolute_Value_' num2str(start_window) '_' num2str(end_window)]);
         save([temp_standard_file(1:end-4) '_' temp_deviant_file(1:end-4) '_NO_Absolute_Value.mat'],'data_exported')
 
     end
@@ -129,3 +129,4 @@ for kk = 1:length(standard_stimuli_files)
     cd ..
 
 end
+
