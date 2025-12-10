@@ -63,7 +63,7 @@ for kkk = 1:length(data_eeg.data_exported.events_trigger)
     end
 
     catch
-        e
+        
         if strcmp(data_eeg.data_exported.events_type(kkk),trigger_selected) 
         
         triggers_analysis(1,position_triggers) = triggers(kkk);
