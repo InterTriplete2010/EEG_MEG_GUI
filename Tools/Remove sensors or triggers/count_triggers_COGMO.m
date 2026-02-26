@@ -61,7 +61,8 @@ end
 
 if (save_triggers_inspected_neuro_scan == -inf)
    
-    matrix_count_triggers = matrix_count_triggers_brain_vision;
+    %matrix_count_triggers = matrix_count_triggers_brain_vision;
+      matrix_count_triggers = 0;
         
 else
     
@@ -69,5 +70,6 @@ else
     
     
 end
+
 
 
