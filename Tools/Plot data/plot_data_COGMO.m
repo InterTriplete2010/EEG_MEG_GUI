@@ -214,11 +214,11 @@ get_axis = get(gca);
     
     if data_plot == 1
         
-    ylabel('\bfAmplitude(\muV EEG or fT MEG)','Position',[-(prop_axis.XTick(2) - prop_axis.XTick(1))/2.5 mean(mean(get_axis.YTick))],'FontSize',18) 
+    ylabel('Amplitude(\muV EEG or fT MEG)','Position',[-(prop_axis.XTick(2) - prop_axis.XTick(1))/2.5 mean(mean(get_axis.YTick))],'FontSize',18) 
 
     else
        
-        ylabel('\bfAmplitude(fT)','Position',[-(prop_axis.XTick(2) - prop_axis.XTick(1))/2.5 mean(mean(get_axis.YTick))],'FontSize',18) 
+        ylabel('Amplitude(fT)','Position',[-(prop_axis.XTick(2) - prop_axis.XTick(1))/2.5 mean(mean(get_axis.YTick))],'FontSize',18) 
 
         
     end
@@ -264,4 +264,5 @@ end
     end
     
     time_duration = samples/sampling_frequency;
+
 
