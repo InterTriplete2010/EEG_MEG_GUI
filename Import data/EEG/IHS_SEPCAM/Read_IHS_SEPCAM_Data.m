@@ -213,7 +213,7 @@ EEG.srate = Samprate;
 %The value "0" has been added to make sure that if the trigger happens to
 %be in location "1", the function is able to detect it. The locs is then 
 %reduced by "1" to account for the addition of the "0" 
-[pks_temp,locs_temp] = findpeaks(abs([0 ChannelData(end,:)]),'minpeakheight',80,'minpeakdistance',1);
+[pks_temp,locs_temp] = findpeaks(abs([0 ChannelData(end,:)]),'minpeakheight',90,'minpeakdistance',2);
 
 locs_temp = locs_temp - 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
