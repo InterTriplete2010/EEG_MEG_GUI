@@ -51,10 +51,10 @@ catch
     
 end
 
-data_exported.chanlocs = inputfileloaded.data_exported.chanlocs;
 data_exported.events_trigger = new_triggers_latency';
 data_exported.events_type = new_triggers_code_names';
 
+data_exported.chanlocs = inputfileloaded.data_exported.chanlocs;
    
 catch
     
