@@ -148,15 +148,15 @@ interval_trig = str2double(get(handles.Trigger_Interval_SEPCAM,'String'));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Removing the last two triggers (one for each polarity) to avoid the program 
 %to crash when extracting the sweeps ("Exceed matrix dimension")
-EEG.triggers (end) = [];
-EEG.type (end) = [];
+%EEG.triggers (end) = [];
+%EEG.type (end) = [];
 
-if (mod(length(EEG.triggers),2) ~= 0)
+%if (mod(length(EEG.triggers),2) ~= 0)
 
-    EEG.triggers (end) = [];
-EEG.type (end) = [];
+    %EEG.triggers (end) = [];
+%EEG.type (end) = [];
 
-end
+%end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
