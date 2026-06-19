@@ -245,7 +245,7 @@ for ll = 1:size(save_single_trials,1)
 
   axis tight
 
-title(['\bfNumber of trials averaged: ' num2str(size(save_single_trials,2))  ' - for channel - ' cell2mat(channels_recorded(ll))])
+title(['Number of trials averaged: ' num2str(size(save_single_trials,2))  ' - for channel - ' cell2mat(channels_recorded(ll))],'interpreter', 'none')
     xlabel('\bfTime (ms)')
     ylabel('\bfAmplitude (uV)')
 
@@ -253,7 +253,7 @@ title(['\bfNumber of trials averaged: ' num2str(size(save_single_trials,2))  ' -
     plot(1000*tt_raw,data_eeg.data_exported.eeg_data(ll,:))
     axis tight
 
-title(['\bfRaw data of channel - ' cell2mat(channels_recorded(ll))])
+title(['Raw data of channel - ' cell2mat(channels_recorded(ll))],'interpreter', 'none')
     xlabel('\bfTime (ms)')
     ylabel('\bfAmplitude (uV)')
     
