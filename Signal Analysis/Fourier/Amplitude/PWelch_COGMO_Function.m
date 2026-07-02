@@ -8,7 +8,7 @@ figure
 subplot(2,1,1)
     pwelch(eegfiledata,round(window_variable*sampling_frequency),round(noverlap_variable*sampling_frequency),round(nfft_variable*sampling_frequency),sampling_frequency);
         
-    title(['\bfPower Spectral Density Estimate via PWelch of channel: ' channel_name],'interpreter', 'none');
+    title(['Power Spectral Density Estimate via PWelch of channel: ' channel_name],'interpreter', 'none');
     
     ylabel('\bfPower/frequency (dB/Hz)')
 
@@ -28,7 +28,7 @@ set(gca,'fontweight','bold')
     
 %time_d = [0:length(eegfiledata) - 1]/sampling_frequency + start_time/sampling_frequency;
 plot(time_plot,eegfiledata)
-title('\bfEEG/MEG');
+title('EEG/MEG');
     
     ylabel('\bfAmplitude(\muV for EEG or fT for MEG)')
 xlabel('\bfTime (s)')  
@@ -64,7 +64,7 @@ hold on
 plot(time_plot,eegfiledata')
 
   
- title('\bfPower Spectral Density Estimate via PWelch of all the channels');
+ title('Power Spectral Density Estimate via PWelch of all the channels');
   
 subplot(2,1,1) 
     ylabel('\bfPower/frequency (dB/Hz)')
@@ -82,7 +82,7 @@ xlabel('\bfFrequency (Hz)')
 set(gca,'fontweight','bold')
 
 subplot(2,1,2)
-title('\bfEEG/MEG');
+title('EEG/MEG');
     
     ylabel('\bfAmplitude(\muV for EEG or fT for MEG)')
 xlabel('\bfTime (s)')  
