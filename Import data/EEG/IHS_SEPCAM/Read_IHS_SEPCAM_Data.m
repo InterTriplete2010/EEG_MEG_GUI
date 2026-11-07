@@ -220,7 +220,7 @@ locs_temp = locs_temp - 1;
 
 if(mod(length(locs_temp),2) ~= 0)
    
-    locs_temp(end) = [];
+    %locs_temp(end) = [];
     
 end
 
