@@ -15,6 +15,8 @@ Each GUI has its own "Help" tab explaining how to use it.
 
 Please, note that scalp maps are plotted by using the Topoplot functions from eeglab (see the foler named "Topoplot Functions"), while ICA based on InfoMax uses the function "runica" from eeglab.
 
+Please, also note that some of the functions in this GUI might have problems and/or will crash if they run with an operating system different from Windows.
+
 I hope this GUI will be of some help to someone.
 
 If you need any assistance and/or find bugs, please contact me (Ale) at: pressalex@hotmail.com
